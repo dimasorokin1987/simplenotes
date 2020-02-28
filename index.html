@@ -1054,9 +1054,19 @@ if(st.autoeval)try{
  eval(st.content);
 }catch(e){alert(e)};
 
-//disable btn when throttle
-ta.oninput=throttle(e=>{
- alert(e.target.value);
+const updateButtons=(
+ {isThrottle},isOffline,mustHide
+)=>{
+ isOffline=!navigator.onLine;
+ mustHide=isThrottle||isOffline;
+ btnLoad.disabled=mustHide;
+ btnStore.disabled=mustHide;
+};
+ononline=()=>updateButtons(st);
+onoffline=()=>updateButtons(st);
+
+ta.oninput=throttle(async(e)=>{
+ //alert(e.target.value);
 
  const[_,title,content]=e.target.value
  .match(/^(.+)\n?([\s\S]*)$/);
@@ -1068,13 +1078,15 @@ ta.oninput=throttle(e=>{
   JSON.stringify(st);
 },5000,{
  beforeEach:()=>{
-  btnLoad.disabled=true;
-  btnStore.disabled=true;
- },afterLast=>{
-  btnLoad.disabled=false;
-  btnStore.disabled=false;
+  st.isThrottle=true;
+  updateButtons(st);
+ },
+ afterLast:()=>{
+  st.isThrottle=false;
+  updateButtons(st);
  }
 });
+
 
 btnStore.onclick=async(txt,r)=>{
   r=await(cryptoStore(
