@@ -9,7 +9,7 @@
 <script type='module'>
 import{customImport}from'./customImport.js';
 (async(
- name,password
+ name,password,txt
 )=>{
  customImport.assignImportMap({
  'utils':'./utils.js',
@@ -89,34 +89,27 @@ p(cmdpanel,btnStore);
 
 p(bd,cmdpanel);
 
+const updateText=
+txt=>{ta.value=txt};
 
-const dst={
- name:'public@simplenotes',
- title:'',
- content:'',
- autoeval:false,
- timestamp:Date.now()
+const updateButtons=(
+ mustHide
+)=>{
+ mustHide=!navigator.onLine;
+ btnLoad.disabled=mustHide;
+ btnStore.disabled=mustHide;
 };
-let st=Object.assign({},dst);
-if(localStorage.state){
-  Object.assign(st,
-   JSON.parse(localStorage.state)
-  );
-}
-let pst={};
 
-const updaters={
- title:({title,content})=>{
-  ta.value=`${title}\n${content}`;
- },content:({title,content})=>{
-  ta.value=`${title}\n${content}`;
- }
-};
-const update=st=>{
- Object.entries(updaters)
- .filter(([k])=>st[k]!==pst[k])
- .forEach(([k,f])=>f(st))
-// ta.value=`${title}\n${content}`;
+const createItem=(
+ txt='',arr,title,content,autoeval,timestamp
+)=>{
+ arr=txt.split('\n');
+ title=arr.shift();
+ content=arr.join('\n');
+ autoeval=title.split(' ')
+ .includes('autoeval');
+ timestamp=Date.now();
+ return{title,content,autoeval,timestamp};
 };
 
 setCheckStatusHandler(async(
@@ -146,85 +139,64 @@ setSignInHandler(async(
  isOk=!!userObj;
  if(isOk){
   alert(JSON.stringify(userObj));
-  Object.assign(st,dst,userObj);
-  update(st);
-  if(st.autoeval)try{
-   eval(st.content);
+  const{
+   title,content,autoeval
+  }=userObj;
+  txt=`${title}\n${content}`;
+  updateText(txt);
+  if(autoeval)try{
+   eval(txt);
   }catch(e){alert(e)};
  }
  return(isOk);
 });
 setSignUpHandler(async(
- login,pass,isOk
+ login,pass,item,isOk
 )=>{
  name=login+'@simplenotes';
  password=pass;
- Object.assign(st,dst,{
-  name,
-  timestamp:Date.now()
- });
+ item=createItem(txt);
  isOk=await(cryptoRegister(
-  name,password,st
+  name,password,item
  ));
- update(st);
  return(isOk);
 });
 setLogoutHandler(()=>{
  alert('logout');
  name='';
  password='';
- Object.assign(st,dst);
- update(st);
+ txt='';
+ updateText();
  return(true);
 });
 
-update(st);
-if(st.autoeval)try{
- eval(st.content);
+
+if(localStorage.txt){
+  txt=localStorage.txt;
+}
+updateText(txt);
+item=createItem(txt);
+if(item.autoeval)try{
+ eval(txt);
 }catch(e){alert(e)};
 
-const updateButtons=(
- {isThrottle},isOffline,mustHide
-)=>{
- isOffline=!navigator.onLine;
- mustHide=isThrottle||isOffline;
- btnLoad.disabled=mustHide;
- btnStore.disabled=mustHide;
+ononline=updateButtons;
+onoffline=updateButtons;
+
+ta.oninput=async(e)=>{
+ txt=e.target.value;
+ localStorage.txt=txt;
 };
-ononline=()=>updateButtons(st);
-onoffline=()=>updateButtons(st);
 
-ta.oninput=throttle(async(e)=>{
- //alert(e.target.value);
-
- const[_,title,content]=e.target.value
- .match(/^(.+)\n?([\s\S]*)$/);
- Object.assign(st,{title,content});
- st.autoeval=title.split(' ')
- .includes('autoeval');
- 
- localStorage.state=
-  JSON.stringify(st);
-},5000,{
- beforeEach:()=>{
-  st.isThrottle=true;
-  updateButtons(st);
- },
- afterLast:()=>{
-  st.isThrottle=false;
-  updateButtons(st);
- }
-});
-
-
-btnStore.onclick=async(txt,r)=>{
+btnStore.onclick=async(item,r)=>{
+  item=createItem(txt);
   r=await(cryptoStore(
-   name,password,st
+   name,password,item
   ));
   alert(r);
 };
 btnEval.onclick=e=>{
- eval(st.content);
+ eval(txt);
 };
 
 //await(customImport('tests'));
