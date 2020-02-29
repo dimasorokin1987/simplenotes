@@ -1,0 +1,193 @@
+import {h,p} from 'utils';
+
+export const createMultiStateLoginForm=(
+ loginText='',
+ checkStatus=()=>({
+  isExist:false,
+  isOnline:false
+ }),
+ signIn=()=>false,
+ signUp=()=>false,
+ logout=()=>true,
+ form,input,button,
+ statesConstants,
+ statesAssigns,
+ transit,
+ updaters,
+ pst={},update,
+ st,
+ setLoginText,
+ setCheckStatusHandler,
+ setSignInHandler,
+ setSignUpHandler,
+ setLogoutHandler
+)=>{
+form=h('form');
+input=h('input');
+button=h('button');
+p(form,input);
+p(form,button);
+
+  statesConstants={
+   loginPrompt:{
+    inputType:'text',
+    placeholder:'Enter login',
+    inputDisabled:false,
+    buttonTitle:'Next',
+   },
+   signInPassPrompt:{
+    inputType:'password',
+    placeholder:'Enter password',
+    inputDisabled:false,
+    buttonTitle:'SignIn'
+   },
+   signUpPassPrompt:{
+    inputType:'password',
+    placeholder:'Enter password',
+    inputDisabled:false,
+    buttonTitle:'SignUp'
+   },
+   showUser:{
+    inputType:'text',
+    placeholder:'login',
+    buttonTitle:'Logout',
+    inputDisabled:true
+   }
+  };
+  statesAssigns={
+   loginPrompt:async(
+    {text:login}
+   )=>{
+    const{
+     isExist,isOnline
+    }=await(checkStatus(login));
+    return{
+     login,
+     text:'',
+     stateId:(isExist?'signInPassPrompt'
+      :isOnline?'signUpPassPrompt'
+      :'loginPrompt'
+     )
+    };
+   },signInPassPrompt:async(
+    {login,text:pass},isOk
+   )=>{
+    isOk=await(signIn(login,pass));
+    return{
+     pass,
+     text:login,
+     stateId:(isOk
+      ?'showUser'
+      :'loginPrompt'
+     )
+    };
+   },signUpPassPrompt:async(
+    {login,text:pass},isOk
+   )=>{
+    isOk=await(signUp(login,pass));
+    return{
+     pass,
+     text:login,
+     stateId:(isOk
+      ?'showUser'
+      :'loginPrompt'
+     )
+    };
+   },showUser:async(st,isOk)=>{
+    isOk=await(logout());
+    return(isOk?{
+     login:'',
+     pass:'',
+     stateId:'loginPrompt'
+    }:{});
+   }
+  };
+
+transit=async(st)=>{
+ //change state
+ Object.assign(st,
+  await(statesAssigns[st.stateId](st))
+ );
+ //make state consistent
+ Object.assign(st,
+  statesConstants[st.stateId]
+ );
+ return(st);
+}
+
+updaters={
+  inputType:v=>{input.type=v},
+  text:v=>{input.value=v},
+  placeholder:v=>{
+   input.placeholder=v
+  },inputDisabled:v=>{
+   input.disabled=v
+  },buttonTitle:v=>{
+   button.innerHTML=v
+  }
+ };
+update=st=>{
+ Object.entries(st)
+ .filter(([k,v])=>!!updaters[k])
+ .filter(([k,v])=>v!==pst[k])
+ .forEach(([k,v])=>updaters[k](v));
+ pst={...st};
+};
+/*
+update=st=>{
+ with(input){
+  type=st.inputType;
+  value=st.text;
+  placeholder=st.placeholder;
+  disabled=st.inputDisabled;
+ }
+ with(button){
+  innerHTML=st.buttonTitle;
+ }
+}*/
+
+setLoginText=(text,stateId)=>{
+ stateId=!!text
+ ?'showUser'
+ :'loginPrompt';
+ st={
+  ...statesConstants[stateId],
+  text,
+  stateId
+ };
+ update(st);
+};
+
+setCheckStatusHandler=
+ f=>{checkStatus=f};
+setSignInHandler=
+ f=>{signIn=f};
+setSignUpHandler=
+ f=>{signUp=f};
+setLogoutHandler=
+ f=>{logout=f};
+
+setLoginText(loginText);
+
+input.oninput=e=>{
+ st.text=e.target.value;
+ update(st);
+};
+form.onsubmit=async(e)=>{
+ e.preventDefault();
+ button.disabled=true;
+ st=await(transit(st));
+ //alert(JSON.stringify(st));
+ update(st);
+ button.disabled=false;
+};
+
+ return{
+  form,
+  setLoginText,
+  setCheckStatusHandler,
+  setSignInHandler,
+  setSignUpHandler,
+  setLogoutHandler
+ };
+}
