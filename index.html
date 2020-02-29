@@ -87,8 +87,6 @@ t=>t.replace(
   (a,b,c)=>`arExport['${b}']=${c}`
  )
 ];
-export const appendCustomizers=
-arr=>customizers.concat(arr);
 const customize=t=>{
  t=customizers.reduce((t,c)=>c(t),t);
  t=`export const arExport=(async(
@@ -113,9 +111,6 @@ const fromScript=(nm,el,t)=>{
 };
 
 let importMap={};
-export const assignImportMap=imp=>{
- Object.assign(importMap,imp);
-};
 const fromMap=async(id,url,f,t)=>{
  url=importMap[id];
  if(!url)return(null);
@@ -125,8 +120,6 @@ const fromMap=async(id,url,f,t)=>{
 };
 
 let resolvers=[fromScript, fromMap];
-export const appendResolvers=
-arr=>resolvers.concat(arr);
 const resolve=async(id)=>(await(
  Promise.all(resolvers
   .map(async(f)=>await(f(id)))
@@ -142,6 +135,19 @@ const memoize=func=>async(id)=>{
  return(cached[id]);
 };
 
+const appendate=f=>{
+ f.appendResolvers=arr=>{
+  resolvers.push(...arr);
+ };
+ f.appendCustomizers=arr=>{
+  customizers.push(...arr);
+ };
+ f.assignImportMap=imp=>{
+  Object.assign(importMap,imp);
+ };
+ return(f);
+};
+
 const pseudoImportText=async(t,m64,m)=>{
  m64='data:text/javascript;base64,';
  m64+=btoa(t);
@@ -149,16 +155,15 @@ const pseudoImportText=async(t,m64,m)=>{
  return(m);
 };
 
-export const customImport=memoize(async(id,url,f,t,m,arrExport)=>{
- //t=null
-// ||fromScript(id)
-// ||await(fromMap(id));
- t=await(resolve(id));
- t=customize(t);
- m=await(pseudoImportText(t));
- arrExport=await(m.arExport);
- return(arrExport);
-});
+export const customImport=appendate(memoize(
+ async(id,url,f,t,m,arrExport)=>{
+  t=await(resolve(id));
+  t=customize(t);
+  m=await(pseudoImportText(t));
+  arrExport=await(m.arExport);
+  return(arrExport);
+ }
+));
 </script>
 <script
  type='import'
@@ -886,15 +891,10 @@ log(6,{test:'cryptoStore function'});
   return(m);
  },name,password
 )=>{
- const{
-  customImport,
-  assignImportMap
- }=await(
-  pseudoImport(
-   'customImport'
-  )
+ const{customImport}=await(
+  pseudoImport('customImport')
  );
- assignImportMap({
+ customImport.assignImportMap({
  'preact':'https://cdn.jsdelivr.net/npm/preact/dist/preact.module.js',
  'preact/hooks':'https://cdn.jsdelivr.net/npm/preact/hooks/dist/hooks.module.js',
  'htm':'https://unpkg.com/htm?module'
