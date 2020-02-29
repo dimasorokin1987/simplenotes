@@ -9,7 +9,7 @@
 <script type='module'>
 import{customImport}from'./customImport.js';
 (async(
- name,password,txt
+ name,password,txt='',items=[]
 )=>{
  customImport.assignImportMap({
  'utils':'./utils.js',
@@ -52,16 +52,12 @@ const{
  setLogoutHandler
 }=createMultiStateLoginForm('');
 const[bd,dv,ta,
- cmdpanel,btnEval,
- btnUpdate,btnAppend,
- btnLoad,btnStore
+ cmdpanel,itemsContainer
 ]=[
  $('body'),
  h('div'),
  h('textarea'),
- h('div'),h('button'),
- h('button'),h('button'),
- h('button'),h('button')
+ h('div'),h('div')
 ];
 form.style.float='right';
 p(bd,form);
@@ -76,6 +72,14 @@ p(bd,ta);
 cmdpanel.style.display='flex';
 cmdpanel.style.justifyContent='space-between';
 
+const[btnEval,
+ btnUpdate,btnAppend,
+ btnLoad,btnStore
+]=[
+ h('button'),
+ h('button'),h('button'),
+ h('button'),h('button')
+];
 btnLoad.innerHTML='load';
 p(cmdpanel,btnLoad);
 btnEval.innerHTML='eval';
@@ -88,6 +92,7 @@ btnStore.innerHTML='store';
 p(cmdpanel,btnStore);
 
 p(bd,cmdpanel);
+p(bd,itemsContainer);
 
 const updateText=
 txt=>{ta.value=txt};
@@ -98,6 +103,23 @@ const updateButtons=(
  mustHide=!navigator.onLine;
  btnLoad.disabled=mustHide;
  btnStore.disabled=mustHide;
+};
+
+const appendItem={
+ title,content
+}=>{
+ itemElement=h('div');
+ itemTitle=h('h4');
+ itemContent=h('pre');
+ itemTitle.innerHTML=title;
+ itemContent.innerHTML=content;
+ p(itemElement,itemTitle);
+ p(itemElement,itemContent);
+ p(itemsContainer,itemElement);
+};
+
+const updateItems=items=>{
+
 };
 
 const createItem=(
@@ -170,7 +192,7 @@ setLogoutHandler(()=>{
  return(true);
 });
 
-
+updateButtons();
 if(localStorage.txt){
   txt=localStorage.txt;
 }
@@ -197,6 +219,12 @@ btnStore.onclick=async(item,r)=>{
 };
 btnEval.onclick=e=>{
  eval(txt);
+};
+btnUppend.onclick=(e,item)=>{
+ item=createItem(txt);
+ appendItem(item);
+ //items.push(item);
+ //updateItems();
 };
 
 //await(customImport('tests'));
