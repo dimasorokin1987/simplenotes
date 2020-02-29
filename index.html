@@ -105,17 +105,17 @@ const updateButtons=(
  btnStore.disabled=mustHide;
 };
 
-const appendItem={
+const appendItem=({
  title,content
-}=>{
- itemElement=h('div');
- itemTitle=h('h4');
- itemContent=h('pre');
- itemTitle.innerHTML=title;
- itemContent.innerHTML=content;
- p(itemElement,itemTitle);
- p(itemElement,itemContent);
- p(itemsContainer,itemElement);
+},el,titl,cont)=>{
+ el=h('div');
+ titl=h('h4');
+ cont=h('pre');
+ titl.innerHTML=title;
+ cont.innerHTML=content;
+ p(el,titl);
+ p(el,cont);
+ p(itemsContainer,el);
 };
 
 const updateItems=items=>{
