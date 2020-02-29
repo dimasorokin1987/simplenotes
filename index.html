@@ -119,7 +119,18 @@ const fromMap=async(id,url,f,t)=>{
  return(t);
 };
 
-let resolvers=[fromScript, fromMap];
+const fromFile=async(filename,f,t)=>{
+ if(!filename.startsWith('./'))
+ {return(null)}
+ f=await(fetch(filename));
+ t=await(f.text());
+ return(t);
+};
+
+let resolvers=[
+ fromScript,fromMap,fromFile
+];
+
 const resolve=async(id)=>(await(
  Promise.all(resolvers
   .map(async(f)=>await(f(id)))
