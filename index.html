@@ -107,7 +107,7 @@ const updateButtons=(
 
 const appendItem=({
  title,content
-},el,titl,cont)=>{
+},el,titl,cont)=>{try{
  el=h('div');
  titl=h('h4');
  cont=h('pre');
@@ -116,7 +116,7 @@ const appendItem=({
  p(el,titl);
  p(el,cont);
  p(itemsContainer,el);
-};
+}catch(e){alert(e)}};
 
 const updateItems=items=>{
 
@@ -222,6 +222,7 @@ btnEval.onclick=e=>{
 };
 btnUppend.onclick=(e,item)=>{
  item=createItem(txt);
+ alert(JSON.stringify(item));
  appendItem(item);
  //items.push(item);
  //updateItems();
