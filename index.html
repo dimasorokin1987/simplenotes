@@ -109,9 +109,10 @@ const appendItem=({
  title,content
 },el,titl,cont)=>{try{
  el=h('div');
- titl=h('h4');
+ titl=h('b');
  cont=h('pre');
  titl.innerHTML=title;
+ cont.style.margin=0;
  cont.innerHTML=content;
  p(el,titl);
  p(el,cont);
