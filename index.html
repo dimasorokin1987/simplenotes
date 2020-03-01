@@ -211,7 +211,7 @@ ta.oninput=async(e)=>{
  localStorage.txt=txt;
 };
 
-btnStore.onclick=async(item,r)=>{
+btnStore.onclick=async(e,item,r)=>{
   item=createItem(txt);
   r=await(cryptoStore(
    name,password,item
@@ -221,7 +221,7 @@ btnStore.onclick=async(item,r)=>{
 btnEval.onclick=e=>{
  eval(txt);
 };
-btnUppend.onclick=(e,item)=>{
+btnAppend.onclick=(e,item)=>{
  item=createItem(txt);
  alert(JSON.stringify(item));
  items.push(item);
