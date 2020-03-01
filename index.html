@@ -201,11 +201,12 @@ updateText(txt);
 alert(333);
 alert(createItem)
 alert(txt);
-item=createItem(txt);
 alert(444);
-if(item.autoeval)try{
- eval(txt);
-}catch(e){alert(e)};
+items.forEach(item=>{
+ if(item.autoeval)try{
+  eval(txt);
+ }catch(e){alert(e)};
+});
 alert(555);
 ononline=updateButtons;
 onoffline=updateButtons;
