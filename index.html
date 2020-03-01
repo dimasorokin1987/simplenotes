@@ -195,10 +195,8 @@ setLogoutHandler(()=>{
 updateButtons();
 if(localStorage.txt){
   txt=localStorage.txt;
-  alert(txt);
 }
 updateText(txt);
-alert(txt);
 items.forEach(item=>{
  if(item.autoeval)try{
   eval(txt);
