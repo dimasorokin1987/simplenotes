@@ -191,18 +191,21 @@ setLogoutHandler(()=>{
  updateText(txt);
  return(true);
 });
-
+alert(111);
 updateButtons();
 if(localStorage.txt){
   txt=localStorage.txt;
   alert(txt);
 }
+alert(222);
 updateText(txt);
+alert(333);
 item=createItem(txt);
+alert(444);
 if(item.autoeval)try{
  eval(txt);
 }catch(e){alert(e)};
-
+alert(555);
 ononline=updateButtons;
 onoffline=updateButtons;
 
