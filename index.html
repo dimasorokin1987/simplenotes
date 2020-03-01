@@ -104,7 +104,7 @@ const updateButtons=(
  btnLoad.disabled=mustHide;
  btnStore.disabled=mustHide;
 };
-
+/*
 const appendItem=({
  title,content
 },el,titl,cont)=>{try{
@@ -121,7 +121,7 @@ const appendItem=({
 const updateItems=items=>{
 
 };
-
+*/
 const createItem=(
  txt='',arr,title,content,autoeval,timestamp
 )=>{
@@ -195,6 +195,7 @@ setLogoutHandler(()=>{
 updateButtons();
 if(localStorage.txt){
   txt=localStorage.txt;
+  alert(txt);
 }
 updateText(txt);
 item=createItem(txt);
@@ -223,7 +224,7 @@ btnEval.onclick=e=>{
 btnUppend.onclick=(e,item)=>{
  item=createItem(txt);
  alert(JSON.stringify(item));
- appendItem(item);
+ //appendItem(item);
  //items.push(item);
  //updateItems();
 };
