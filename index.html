@@ -90,13 +90,13 @@ btnAppend.innerHTML='append';
 p(cmdpanel,btnAppend);
 btnStore.innerHTML='store';
 p(cmdpanel,btnStore);
-alert(777);
+
 p(bd,cmdpanel);
 p(bd,itemsContainer);
-alert(888);
+
 const updateText=
 txt=>{ta.value=txt};
-alert(999);
+
 const updateButtons=(
  mustHide
 )=>{
@@ -104,7 +104,7 @@ const updateButtons=(
  btnLoad.disabled=mustHide;
  btnStore.disabled=mustHide;
 };
-alert(123);
+
 /*
 const appendItem=({
  title,content
@@ -192,15 +192,15 @@ setLogoutHandler(()=>{
  updateText(txt);
  return(true);
 });
-alert(111);
 updateButtons();
 if(localStorage.txt){
   txt=localStorage.txt;
   alert(txt);
 }
-alert(222);
 updateText(txt);
 alert(333);
+alert(createItem)
+alert(txt);
 item=createItem(txt);
 alert(444);
 if(item.autoeval)try{
