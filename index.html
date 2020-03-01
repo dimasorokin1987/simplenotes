@@ -105,12 +105,12 @@ const updateButtons=(
  btnStore.disabled=mustHide;
 };
 
-const appendItem=({
- title,content
-},el,titl,cont)=>{try{
- el=h('div');
- titl=h('b');
- cont=h('pre');
+const appendItem=(
+ {title,content},
+ el=h('div'),
+ titl=h('b'),
+ cont=h('pre')
+)=>{try{
  titl.innerHTML=title;
  cont.style.margin=0;
  cont.innerHTML=content;
@@ -124,16 +124,16 @@ const updateItems=items=>{
 };
 
 const createItem=(
- txt='',arr,title,content,autoeval,timestamp
-)=>{
- arr=txt.split('\n');
- title=arr.shift();
- content=arr.join('\n');
+ txt='',
+ arr=txt.split('\n'),
+ title=arr.shift(),
+ content=arr.join('\n'),
  autoeval=title.split(' ')
- .includes('autoeval');
- timestamp=Date.now();
- return{title,content,autoeval,timestamp};
-};
+ .includes('autoeval'),
+ timestamp=Date.now()
+)=>(
+ {title,content,autoeval,timestamp}
+);
 
 setCheckStatusHandler(async(
  login,nm,isEmpty,isExist,isOnline
