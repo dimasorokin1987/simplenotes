@@ -305,8 +305,7 @@ async(buf,
  return(d);
 };
 
-export const crypt=async(nm,pass,obj,id,url,key,txt,enc,d,estr)=>{
- id=await(hash(nm));
+export const crypt=async(pass,obj,url,key,txt,enc,d,estr)=>{
  key=await(pass2key(pass));
  txt=JSON.stringify(obj);
  enc=create(TextEncoder);
@@ -322,9 +321,8 @@ export const crypt=async(nm,pass,obj,id,url,key,txt,enc,d,estr)=>{
 };
 
 export const uncrypt=async(
- nm,pas,estr,id,key,d,dec,txt,obj
+ pas,estr,key,d,dec,txt,obj
 )=>{
- id=await(hash(nm));
  key=await(pass2key(pas));
  d=await(pipe(estr,[
   estr=>JSON.parse(estr),
@@ -337,6 +335,23 @@ export const uncrypt=async(
  dec=create(TextDecoder);
  txt=dec.decode(d);
  obj=JSON.parse(txt);
+ return(obj);
+};
+
+export const cryptoLocalStore=
+async(prefix,nm,pas,obj,id)=>{
+ id=await(hash(nm));
+ localStorage[prefix+id]=await(
+  crypt(pas,obj)
+ );
+};
+
+export const cryptoLocalLoad=
+async(prefix,nm,pas,id,estr,obj)=>{
+ id=await(hash(nm));
+ estr=localStorage[prefix+id];
+ if(estr===undefined)return(null);
+ obj=await(uncrypt(pas,estr));
  return(obj);
 };
 
