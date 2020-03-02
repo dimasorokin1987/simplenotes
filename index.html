@@ -196,7 +196,10 @@ if(localStorage.txt){
   txt=localStorage.txt;
 }
 if(localStorage.items){
- items=JSON.parse(localStorage.items);
+ items=await(cryptoLocalLoad(
+  'items_',name,password
+ ));
+ //items=JSON.parse(localStorage.items);
 }
 updateButtons();
 updateText(txt);
@@ -225,12 +228,15 @@ btnStore.onclick=async(e,item,r)=>{
 btnEval.onclick=e=>{
  eval(txt);
 };
-btnAppend.onclick=(e,item)=>{
+btnAppend.onclick=async(e,item)=>{
  item=createItem(txt);
  alert(JSON.stringify(item));
  items.push(item);
- localStorage.items=JSON
- .stringify(items);
+ await(cryptoLocalStore(
+  'items_',name,password,items
+ ));
+// localStorage.items=JSON
+// .stringify(items);
  appendItem(item);
  //updateItems();
 };
