@@ -10,7 +10,7 @@
 import{customImport}from'./customImport.js';
 
 (async(
- name='public@simplenotes,
+ name='public@simplenotes',
  password='',
  txt='',items=[]
 )=>{
@@ -201,9 +201,11 @@ if(localStorage.txt){
   txt=localStorage.txt;
 }
 //if(localStorage.items){
- items=await(cryptoLocalLoad(
-  'items_',name,password
- ));
+ try{
+  items=await(cryptoLocalLoad(
+   'items_',name,password
+  ));
+ }catch(e){alert(e)}
  //items=JSON.parse(localStorage.items);
 //}
 updateButtons();
