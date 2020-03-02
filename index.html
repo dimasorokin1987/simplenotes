@@ -120,6 +120,9 @@ const appendItem=(
 }catch(e){alert(e)}};
 const updateItems=items=>{
  itemsContainer.innerHTML='';
+ alert(777);
+ alert(itemsContainer);
+ alert(itemsContainer.appendChild);
  items.forEach(appendItem);
 };
 const createItem=(
@@ -201,7 +204,6 @@ if(localStorage.items){
 updateButtons();
 updateText(txt);
 updateItems(items);
-alert(555);
 items.forEach(item=>{
  if(item.autoeval)try{
   eval(txt);
