@@ -138,17 +138,14 @@ log(7,{test: 'crypt and uncrypt funcs'});
 const{
  crypt,uncrypt
 }=await(customImport('crypto/auth'));
-alert(999)
 estr=await(crypt(
  'pass',{a:111}
 ));
 log(7,{estr});
-alert(555)
 obj=await(uncrypt(
  'pass',estr
 ));
 log(7,{obj});
-
 }catch(e){alert(e)}})();
 
 log(8,{test:'crypto local store and load func'});
@@ -156,16 +153,13 @@ log(8,{test:'crypto local store and load func'});
 const{
  cryptoLocalStore,cryptoLocalLoad
 }=await(customImport('crypto/auth'));
-
 await(cryptoLocalStore(
  'test_','test@simplenotes','pass',{a:111}
 ));
-
 const obj=await(cryptoLocalLoad(
  'test_','test@simplenotes','pass'
 ));
 log(8,{obj});
-
 }catch(e){alert(e)}})();
 
 };
