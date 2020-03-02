@@ -132,4 +132,23 @@ log(6,{test:'cryptoStore function'});
  ));
  log(6,{r});
 })();
+
+
+log(7,{test: 'crypt and uncrypt funcs'});
+(async(estr,obj)=>{try{
+const{
+ crypt,uncrypt
+}=await(customImport('crypto/auth'));
+
+estr=await(crypt(
+ 'test@simplenotes','pass',{a:111}
+));
+log(7,{estr});
+
+obj=await(uncrypt(
+ 'test@simplenotes','pass',estr
+));
+log(7,{obj});
+
+}catch(e){alert(e)}})();
 };
