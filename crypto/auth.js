@@ -257,6 +257,22 @@ async(d,salt2,key2,sg,sbuf)=>{
  return(sbuf);
 };
 
+export const verify1=
+async(key)=>
+async(sbuf,
+ salt2=sbuf.slice(0,16),
+ sg=sbuf.slice(16,80),
+ d=sbuf.slice(80),
+ key2,isOk
+)=>{
+ key2=await(
+  key2hmacKey(key,salt2)
+ );
+ isOk=await(verify(key2,sg,d));
+ return(isOk?d:null);
+};
+
+
 export const encrypt1=
 async(key)=>
 async(d,salt1,iv,key1,ebuf,buf)=>{
@@ -270,6 +286,58 @@ async(d,salt1,iv,key1,ebuf,buf)=>{
  );
  buf=join([salt1,iv,ebuf]);
  return(buf);
+};
+
+export const decrypt1=
+async(key)=>
+async(buf,
+ salt1=buf.slice(0,16),
+ iv=buf.slice(16,28),
+ ebuf=buf.slice(28),
+ key1,d
+)=>{
+ key1=await(
+  key2aesGcmKey(key,salt1)
+ );
+ d=await(
+  decryptAesGcm(key1,iv,ebuf)
+ );
+ return(d);
+};
+
+export const crypt=async(nm,pass,obj,id,url,key,txt,enc,d,estr)=>{
+ id=await(hash(nm));
+ key=await(pass2key(pass));
+ txt=JSON.stringify(obj);
+ enc=create(TextEncoder);
+ d=enc.encode(txt);
+ estr=await(pipe(d,[
+  await(sign1(key)),
+  await(encrypt1(key)),
+  buf2hex,
+  h=>({h}),
+  eobj=>JSON.stringify(eobj)
+ ]));
+ return(estr);
+};
+
+export const uncrypt=async(
+ nm,pas,estr,id,key,d,dec,txt,obj
+)=>{
+ id=await(hash(nm));
+ key=await(pass2key(pas));
+ d=await(pipe(estr,[
+  estr=>JSON.parse(estr),
+  ({h})=>h,
+  hex2buf,
+  await(decrypt1(key)),
+  await(verify1(key))
+ ]));
+ if(!d)return(null);
+ dec=create(TextDecoder);
+ txt=dec.decode(d);
+ obj=JSON.parse(txt);
+ return(obj);
 };
 
 export const put1=
