@@ -141,12 +141,12 @@ const{
 }=await(customImport('crypto/auth'));
 
 estr=await(crypt(
- 'test@simplenotes','pass',{a:111}
+ 'pass',{a:111}
 ));
 log(7,{estr});
 
 obj=await(uncrypt(
- 'test@simplenotes','pass',estr
+ 'pass',estr
 ));
 log(7,{obj});
 
