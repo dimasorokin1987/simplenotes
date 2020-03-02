@@ -305,8 +305,8 @@ async(buf,
  return(d);
 };
 
-export const crypt=async(pass,obj,url,key,txt,enc,d,estr)=>{
- key=await(pass2key(pass));
+export const crypt=async(pas,obj,url,key,txt,enc,d,estr)=>{
+ key=await(pass2key(pas));
  txt=JSON.stringify(obj);
  enc=create(TextEncoder);
  d=enc.encode(txt);
@@ -350,8 +350,6 @@ export const cryptoLocalLoad=
 async(prefix,nm,pas,id,estr,obj)=>{
  id=await(hash(nm));
  estr=localStorage[prefix+id];
-alert(111);
-alert(estr);
  if(estr===undefined)return(null);
  obj=await(uncrypt(pas,estr));
  return(obj);
