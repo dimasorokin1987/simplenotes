@@ -114,15 +114,15 @@ const appendItem=(
  titl.innerHTML=title;
  cont.style.margin=0;
  cont.innerHTML=content;
+ alert(888);
+ alert(el.appendChild)
  p(el,titl);
  p(el,cont);
+ alert(itemsContainer.appendChild);
  p(itemsContainer,el);
 }catch(e){alert(e)}};
 const updateItems=items=>{
  itemsContainer.innerHTML='';
- alert(777);
- alert(itemsContainer);
- alert(itemsContainer.appendChild);
  items.forEach(appendItem);
 };
 const createItem=(
