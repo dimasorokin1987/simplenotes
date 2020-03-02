@@ -120,7 +120,8 @@ const appendItem=(
 }catch(e){alert(e)}};
 
 const updateItems=items=>{
-
+ itemsConteiner.innerHTML='';
+ items.forEach(appendItem);
 };
 
 const createItem=(
@@ -192,16 +193,23 @@ setLogoutHandler(()=>{
  updateText(txt);
  return(true);
 });
-updateButtons();
+
 if(localStorage.txt){
   txt=localStorage.txt;
 }
+if(localStorage.items){
+ items=JSON.parse(localStorage.items);
+}
+
+updateButtons();
 updateText(txt);
+updateItems(items);
 items.forEach(item=>{
  if(item.autoeval)try{
   eval(txt);
  }catch(e){alert(e)};
 });
+
 ononline=updateButtons;
 onoffline=updateButtons;
 
@@ -224,6 +232,8 @@ btnAppend.onclick=(e,item)=>{
  item=createItem(txt);
  alert(JSON.stringify(item));
  items.push(item);
+ localStorage.items=JSON
+ .stringify(items);
  appendItem(item);
  //updateItems();
 };
