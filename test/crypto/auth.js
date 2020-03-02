@@ -133,7 +133,7 @@ log(6,{test:'cryptoStore function'});
  log(6,{r});
 })();
 
-
+/*
 log(7,{test: 'crypt and uncrypt funcs'});
 (async(estr,obj)=>{try{
 const{
@@ -151,6 +151,7 @@ obj=await(uncrypt(
 log(7,{obj});
 
 }catch(e){alert(e)}})();
+*/
 
 log(8,{test:'crypto local store and load func'});
 (async()=>{try{
