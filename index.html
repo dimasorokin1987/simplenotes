@@ -118,12 +118,12 @@ const appendItem=(
  p(el,cont);
  p(itemsContainer,el);
 }catch(e){alert(e)}};
-
+alert(111);
 const updateItems=items=>{
  itemsConteiner.innerHTML='';
  items.forEach(appendItem);
 };
-
+alert(222);
 const createItem=(
  txt='',
  arr=txt.split('\n'),
@@ -197,13 +197,16 @@ setLogoutHandler(()=>{
 if(localStorage.txt){
   txt=localStorage.txt;
 }
+alert(333);
 if(localStorage.items){
  items=JSON.parse(localStorage.items);
 }
 
 updateButtons();
 updateText(txt);
+alert(444);
 updateItems(items);
+alert(555);
 items.forEach(item=>{
  if(item.autoeval)try{
   eval(txt);
