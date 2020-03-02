@@ -139,12 +139,12 @@ log(7,{test: 'crypt and uncrypt funcs'});
 const{
  crypt,uncrypt
 }=await(customImport('crypto/auth'));
-
+alert(999)
 estr=await(crypt(
  'pass',{a:111}
 ));
 log(7,{estr});
-
+alert(555)
 obj=await(uncrypt(
  'pass',estr
 ));
