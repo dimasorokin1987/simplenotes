@@ -350,6 +350,8 @@ export const cryptoLocalLoad=
 async(prefix,nm,pas,id,estr,obj)=>{
  id=await(hash(nm));
  estr=localStorage[prefix+id];
+alert(111);
+alert(estr);
  if(estr===undefined)return(null);
  obj=await(uncrypt(pas,estr));
  return(obj);
