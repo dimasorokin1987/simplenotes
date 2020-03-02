@@ -152,7 +152,7 @@ log(7,{obj});
 
 }catch(e){alert(e)}})();
 */
-/*
+
 log(8,{test:'crypto local store and load func'});
 (async()=>{try{
 const{
@@ -169,6 +169,5 @@ const obj=await(cryptoLocalLoad(
 log(8,{obj});
 
 }catch(e){alert(e)}})();
-*/
 
 };
