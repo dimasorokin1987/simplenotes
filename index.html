@@ -10,7 +10,9 @@
 import{customImport}from'./customImport.js';
 
 (async(
- name,password,txt='',items=[]
+ name='public@simplenotes,
+ password='',
+ txt='',items=[]
 )=>{
  customImport.assignImportMap({
  'utils':'./utils.js',
@@ -53,7 +55,7 @@ const{
  setSignInHandler,
  setSignUpHandler,
  setLogoutHandler
-}=createMultiStateLoginForm('');
+}=createMultiStateLoginForm();
 const[bd,dv,ta,
  cmdpanel,itemsContainer
 ]=[
@@ -198,12 +200,12 @@ setLogoutHandler(()=>{
 if(localStorage.txt){
   txt=localStorage.txt;
 }
-if(localStorage.items){
+//if(localStorage.items){
  items=await(cryptoLocalLoad(
   'items_',name,password
  ));
  //items=JSON.parse(localStorage.items);
-}
+//}
 updateButtons();
 updateText(txt);
 updateItems(items);
