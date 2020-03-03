@@ -270,18 +270,18 @@ ta.oninput=async(e)=>{
 };
 
 btnStore.onclick=async(e,r)=>{
-  r=await(cryptoStore(
-   name,password,items
-  ));
-  alert(r);
-};
+ r=await(cryptoStore(
+  name,password,items
+ ));
+ alert(r);
+};/*
 btnLoad.onclick=async(e)=>{
-  items=await(cryptoLoad(
-   name,password
-  ));
-  alert(JSON.stringify(items));
-  updateItems(items);
-};
+ items=await(cryptoLoad(
+  name,password
+ ));
+ alert(JSON.stringify(items));
+ updateItems(items);
+};*/
 btnEval.onclick=e=>{
  eval(txt);
 };
