@@ -299,8 +299,10 @@ btnAppend.onclick=async(e,item)=>{
  ));
  //localStorage.items=JSON
  //.stringify(items);
- appendItem(item);
- //updateItems();
+ //appendItem(item);
+ updateItems(items);
+ appendEditButtons(itemsContainer);
+ processAutoEval(items);
 };
 btnUpdate.onclick=async(e,txt,item)=>{
  alert(index);
@@ -311,7 +313,10 @@ btnUpdate.onclick=async(e,txt,item)=>{
  await(cryptoLocalStore(
   'items_',name,password,items
  ));
- updateItem(item,index);
+ //updateItem(item,index);
+ updateItems(items);
+ appendEditButtons(itemsContainer);
+ processAutoEval(items);
 };
 
 //await(customImport('tests'));
