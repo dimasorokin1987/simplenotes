@@ -284,6 +284,8 @@ btnLoad.onclick=async(e)=>{
  ));
  alert(JSON.stringify(items));
  updateItems(items);
+ appendEditButtons(itemsContainer);
+ processAutoEval(items);
 };
 btnEval.onclick=e=>{
  eval(txt);
@@ -305,14 +307,11 @@ btnUpdate.onclick=async(e,txt,item)=>{
  txt=ta.value;
  item=createItem(txt);
  alert(JSON.stringify(item));
- items[i]=item;
-alert(111)
+ items[index]=item;
  await(cryptoLocalStore(
   'items_',name,password,items
  ));
-alert(222)
  updateItem(item,index);
-alert(333)
 };
 
 //await(customImport('tests'));
