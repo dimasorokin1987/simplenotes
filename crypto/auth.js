@@ -65,8 +65,26 @@ export const check=async(id,f,t)=>{
  t=await(f.text());
  return(t==='');
 };
+export const getText=async(url,f,txt)=>{
+ f=await(fetch(url));
+ txt=await(f.text());
+ return(txt);
+};
 export const get=async(url,f,j)=>{
  f=await(fetch(url));
+ j=await(f.json());
+ return(j);
+};
+
+export const putText=async(url,txt,p,f,j)=>{
+ p={
+  method:'put',
+  headers:{
+   'Content-Type':'application/json'
+  },
+  body:txt,
+ };
+ f=await(fetch(url,p));
  j=await(f.json());
  return(j);
 };
@@ -358,20 +376,18 @@ async(prefix,nm,pas,id,estr,obj)=>{
 export const put1=
 url=>async(obj)=>await(put(url,obj));
 
-export const cryptoStore=async(nm,pass,obj,id,url,key,txt,enc,d,r,isOk)=>{
- id=await(hash(nm));
+export const cryptoStore=async(titl,pas,obj,id,url,estr,r,isOk)=>{
+ id=await(hash(titl));
  url=baseUrl+id;
- key=await(pass2key(pass));
- txt=JSON.stringify(obj);
- enc=create(TextEncoder);
- d=enc.encode(txt);
- r=await(pipe(d,[
-  await(sign1(key)),
-  await(encrypt1(key)),
-  buf2hex,
-  h=>({h}),
-  put1(url)
- ]));
+ estr=await(crypt(pas,obj));
+ r=await(putText(url,estr));
  isOk=r.uri&&(r.uri===url);
  return(isOk);
+};
+export const cryptoLoad=async(titl,pas,id,url,estr,obj)=>{
+ id=await(hash(titl));
+ url=baseUrl+id;
+ estr=await(getText(url));
+ obj=await(uncrypt(pas,estr));
+ return(obj);
 };
