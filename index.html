@@ -12,8 +12,7 @@ import{customImport}from'./customImport.js';
 (async(
  name='public@simplenotes',
  password='pass',
- txt='',items=[],
- els,index
+ txt='',items=[],index
 )=>{try{
  customImport.assignImportMap({
  'utils':'./utils.js',
@@ -160,6 +159,35 @@ const createItem=(
  {title,content,autoeval,timestamp}
 );
 
+const appendEditButtons=(
+ itemsContainer
+)=>{
+ Array.from(
+  itemsContainer.childNodes
+ ).forEach((el,i,ar,
+  btn=h('button')
+ )=>{
+  btn.innerHTML='^';
+  el.firstChild.prepend(btn);
+  btn.onclick=e=>{
+   index=i;
+   ta.value=el.innerText.substr(1);
+   alert(index);
+   btnUpdate.disabled=false;
+  };
+ });
+};
+
+const processAutoEval=(items)=>{
+ items.forEach(({
+  title,content,autoeval
+ })=>{
+  if(autoeval)try{
+   eval(`${title}\n${content}`);
+  }catch(e){alert(e)};
+ });
+};
+
 setCheckStatusHandler(async(
  login,nm,isEmpty,isExist,isOnline
 )=>{
@@ -189,13 +217,8 @@ setSignInHandler(async(
   alert(JSON.stringify(userObj));
   items=userObj;
   updateItems(items);
-  items.forEach(({
-   title,content,autoeval
-  })=>{
-   if(autoeval)try{
-    eval(`${title}\n${content}`);
-   }catch(e){alert(e)};
-  });
+  appendEditButtons(itemsContainer);
+  processAutoEval(items);
  }
  return(isOk);
 });
@@ -238,30 +261,8 @@ try{
 updateButtons();
 updateText(txt);
 updateItems(items);
-
-els=Array.from(
- itemsContainer.childNodes
-);
-els.forEach((el,i,ar,
- btn=h('button')
-)=>{
- btn.innerHTML='^';
- el.firstChild.prepend(btn);
- btn.onclick=e=>{
-  index=i;
-  ta.value=el.innerText.substr(1);
-  alert(index);
-  btnUpdate.disabled=false;
- };
-});
-
-items.forEach(({
- title,content,autoeval
-})=>{
- if(autoeval)try{
-  eval(`${title}\n${content}`);
- }catch(e){alert(e)};
-});
+appendEditButtons(itemsContainer);
+processAutoEval(items);
 
 ononline=updateButtons;
 onoffline=updateButtons;
