@@ -306,10 +306,13 @@ btnUpdate.onclick=async(e,txt,item)=>{
  item=createItem(txt);
  alert(JSON.stringify(item));
  items[i]=item;
+alert(111)
  await(cryptoLocalStore(
   'items_',name,password,items
  ));
+alert(222)
  updateItem(item,index);
+alert(333)
 };
 
 //await(customImport('tests'));
