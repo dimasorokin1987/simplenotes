@@ -236,7 +236,7 @@ try{
 updateButtons();
 updateText(txt);
 updateItems(items);
-
+/*
 els=Array.from(
  itemsContainer.childNodes
 );
@@ -268,7 +268,7 @@ ta.oninput=async(e)=>{
  txt=e.target.value;
  localStorage.txt=txt;
 };
-/*
+
 btnStore.onclick=async(e,r)=>{
  r=await(cryptoStore(
   name,password,items
@@ -281,7 +281,7 @@ btnLoad.onclick=async(e)=>{
  ));
  alert(JSON.stringify(items));
  updateItems(items);
-};*/
+};
 btnEval.onclick=e=>{
  eval(txt);
 };
@@ -308,7 +308,7 @@ btnUpdate.onclick=async(e,txt,item)=>{
  ));
  updateItem(item,index);
 };
-
+*/
 //await(customImport('tests'));
 }catch(e){alert(e)}})();
 </script>
