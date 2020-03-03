@@ -253,9 +253,9 @@ els.forEach((el,i,ar,
  };
 });
 
-items.forEach({
+items.forEach(({
  title,content,autoeval
-}=>{
+})=>{
  if(autoeval)try{
   eval(`${title}\n${content}`);
  }catch(e){alert(e)};
@@ -268,7 +268,7 @@ ta.oninput=async(e)=>{
  txt=e.target.value;
  localStorage.txt=txt;
 };
-/*
+
 btnStore.onclick=async(e,r)=>{
  r=await(cryptoStore(
   name,password,items
@@ -308,7 +308,7 @@ btnUpdate.onclick=async(e,txt,item)=>{
  ));
  updateItem(item,index);
 };
-*/
+
 //await(customImport('tests'));
 }catch(e){alert(e)}})();
 </script>
