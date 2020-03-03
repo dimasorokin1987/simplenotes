@@ -14,7 +14,7 @@ import{customImport}from'./customImport.js';
  password='pass',
  txt='',items=[],
  els,index
-)=>{
+)=>{try{
  customImport.assignImportMap({
  'utils':'./utils.js',
  'test/customImport/stub':'./test/customImport/stub.js',
@@ -310,6 +310,7 @@ btnUpdate.onclick=async(e,txt,item)=>{
 };
 
 //await(customImport('tests'));
-})();</script>
+}catch(e){alert(e)}})();
+</script>
 </body>
 </html>
