@@ -202,9 +202,11 @@ if(localStorage.txt){
 }
 try{
  alert(name)
+ alert(password)
  items=await(cryptoLocalLoad(
   'items_',name,password
  ))||[];
+ alert(items);
 }catch(e){alert(e)}
  //if(localStorage.items){
  //items=JSON.parse(localStorage.items);
