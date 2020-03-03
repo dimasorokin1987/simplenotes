@@ -11,7 +11,7 @@ import{customImport}from'./customImport.js';
 
 (async(
  name='public@simplenotes',
- password='',
+ password='pass',
  txt='',items=[]
 )=>{
  customImport.assignImportMap({
@@ -201,6 +201,7 @@ if(localStorage.txt){
   txt=localStorage.txt;
 }
 try{
+ alert(name)
  items=await(cryptoLocalLoad(
   'items_',name,password
  ))||[];
