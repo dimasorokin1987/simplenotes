@@ -242,6 +242,7 @@ btnLoad.onclick=async(e,item)=>{
   ));
   alert(JSON.stringify(item));
   txt=`${item.title}\n${item.content}`;
+  updateText(txt);
 };
 btnEval.onclick=e=>{
  eval(txt);
