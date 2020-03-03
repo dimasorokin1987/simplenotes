@@ -171,7 +171,7 @@ r=await(cryptoStore(
  'test@simplenotes test title','pass',{a:111}
 ));
 log(9,{r});
-obj=await(cryptoLocalLoad(
+obj=await(cryptoLoad(
  'test@simplenotes test title','pass'
 ));
 log(9,{obj});
