@@ -153,11 +153,11 @@ log(8,{test:'crypto local store and load func'});
 const{
  cryptoLocalStore,cryptoLocalLoad
 }=await(customImport('crypto/auth'));
-await(cryptoLocalStore(
- 'test_','test@simplenotes','pass',{a:111}
+await(cryptoStore(
+ 'test_','test123@simplenotes','pass',{a:111}
 ));
 obj=await(cryptoLocalLoad(
- 'test_','test@simplenotes','pass'
+ 'test_','test123@simplenotes','pass'
 ));
 log(8,{obj});
 }catch(e){alert(e)}})();
