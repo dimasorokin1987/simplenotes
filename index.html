@@ -235,6 +235,13 @@ btnStore.onclick=async(e,item,r)=>{
   ));
   alert(r);
 };
+btnLoad.onclick=async(e,item)=>{
+  item=await(cryptoLoad(
+   name,password
+  ));
+  alert(JSON.stringify(item));
+  txt=`${item.title}\n${item.content}`;
+};
 btnEval.onclick=e=>{
  eval(txt);
 };
