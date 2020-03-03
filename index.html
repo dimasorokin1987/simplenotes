@@ -200,14 +200,14 @@ setLogoutHandler(()=>{
 if(localStorage.txt){
   txt=localStorage.txt;
 }
-if(localStorage.items){
-/* try{
-  items=await(cryptoLocalLoad(
-   'items_',name,password
-  ));
- }catch(e){alert(e)}*/
- items=JSON.parse(localStorage.items);
-}
+try{
+ items=await(cryptoLocalLoad(
+  'items_',name,password
+ ))||[];
+}catch(e){alert(e)}
+ //if(localStorage.items){
+ //items=JSON.parse(localStorage.items);
+//}
 updateButtons();
 updateText(txt);
 updateItems(items);
@@ -239,11 +239,11 @@ btnAppend.onclick=async(e,item)=>{
  item=createItem(txt);
  alert(JSON.stringify(item));
  items.push(item);
-// await(cryptoLocalStore(
- // 'items_',name,password,items
- //));
- localStorage.items=JSON
- .stringify(items);
+ await(cryptoLocalStore(
+  'items_',name,password,items
+ ));
+ //localStorage.items=JSON
+ //.stringify(items);
  appendItem(item);
  //updateItems();
 };
