@@ -149,17 +149,33 @@ log(7,{obj});
 }catch(e){alert(e)}})();
 
 log(8,{test:'crypto local store and load func'});
-(async()=>{try{
+(async(obj)=>{try{
 const{
  cryptoLocalStore,cryptoLocalLoad
 }=await(customImport('crypto/auth'));
 await(cryptoLocalStore(
  'test_','test@simplenotes','pass',{a:111}
 ));
-const obj=await(cryptoLocalLoad(
+obj=await(cryptoLocalLoad(
  'test_','test@simplenotes','pass'
 ));
 log(8,{obj});
 }catch(e){alert(e)}})();
+
+log(9,{test:'crypto store and load func'});
+(async(r,obj)=>{try{
+const{
+ cryptoStore,cryptoLoad
+}=await(customImport('crypto/auth'));
+r=await(cryptoStore(
+ 'test@simplenotes test title','pass',{a:111}
+));
+log(9,{r});
+obj=await(cryptoLocalLoad(
+ 'test@simplenotes test title','pass'
+));
+log(9,{obj});
+}catch(e){alert(e)}})();
+
 
 };
