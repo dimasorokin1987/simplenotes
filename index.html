@@ -269,20 +269,18 @@ ta.oninput=async(e)=>{
  localStorage.txt=txt;
 };
 
-btnStore.onclick=async(e,item,r)=>{
-  item=createItem(txt);
+btnStore.onclick=async(e,r)=>{
   r=await(cryptoStore(
-   name,password,item
+   name,password,items
   ));
   alert(r);
 };
-btnLoad.onclick=async(e,item)=>{
-  item=await(cryptoLoad(
+btnLoad.onclick=async(e)=>{
+  items=await(cryptoLoad(
    name,password
   ));
-  alert(JSON.stringify(item));
-  txt=`${item.title}\n${item.content}`;
-  updateText(txt);
+  alert(JSON.stringify(items));
+  updateItems(items);
 };
 btnEval.onclick=e=>{
  eval(txt);
