@@ -143,6 +143,9 @@ const updateItem=(
 )=>{try{
  el.innerHTML='';
  titl.innerHTML=title;
+ cont.style.display=isExpanded
+ ?'block'
+ :'none';
  cont.style.margin=0;
  cont.innerHTML=content;
  p(el,titl);
@@ -202,15 +205,17 @@ const appendExpandButtons=(
   btn=h('button')
  )=>{
   btn.style.float='right';
-  btn.innerHTML='_';
+  if(items[i].isExpanded){
+   btn.innerHTML='_';
+  }else{
+   btn.innerHTML='=';
+  }
   el.prepend(btn);
   btn.onclick=(e,title,content)=>{
    if(items[i].isExpanded){
     items[i].isExpanded=false;
-    btn.innerHTML='=';
    }else{
     items[i].isExpanded=true;
-    btn.innerHTML='_';
    }
    updateItems(items);
    appendEditButtons(itemsContainer);
