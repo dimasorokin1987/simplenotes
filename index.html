@@ -168,10 +168,17 @@ const appendEditButtons=(
   btn=h('button')
  )=>{
   btn.innerHTML='^';
-  el.firstChild.prepend(btn);
-  btn.onclick=e=>{
+  el.prepend(btn);
+  btn.onclick=(e,title,content)=>{
    index=i;
-   ta.value=el.innerText.substr(1);
+   title=el
+   .querySelector('b')
+   .innerHTML;
+   content=el
+   .querySelector('pre')
+   .innerHTML;
+   ta.value=`${title}\n${content}`;
+   //el.innerText.substr(1);
    alert(index);
    btnUpdate.disabled=false;
   };
