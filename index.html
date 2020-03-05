@@ -69,6 +69,17 @@ const[bd,dv,ta,
 form.style.float='right';
 p(bd,form);
 
+const[
+ btnLoad,btnStore
+]=[
+ h('button'),h('button')
+];
+btnLoad.innerHTML='load';
+p(bd,btnLoad);
+btnStore.float='right';
+btnStore.innerHTML='store';
+p(cmdpanel,btnStore);
+
 dv.style.clear='both';
 p(bd,dv);
 
@@ -80,15 +91,11 @@ cmdpanel.style.display='flex';
 cmdpanel.style.justifyContent='space-between';
 
 const[btnEval,
- btnUpdate,btnAppend,btnRemove,
- btnLoad,btnStore
+ btnUpdate,btnAppend,btnRemove
 ]=[
  h('button'),h('button'),
  h('button'),h('button'),
- h('button'),h('button')
 ];
-btnLoad.innerHTML='load';
-p(cmdpanel,btnLoad);
 btnEval.innerHTML='eval';
 p(cmdpanel,btnEval);
 btnUpdate.innerHTML='update';
@@ -99,8 +106,6 @@ p(cmdpanel,btnAppend);
 btnRemove.innerHTML='remove';
 btnRemove.disabled=true;
 p(cmdpanel,btnRemove);
-btnStore.innerHTML='store';
-p(cmdpanel,btnStore);
 
 p(bd,cmdpanel);
 p(bd,itemsContainer);
