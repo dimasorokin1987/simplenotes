@@ -1,0 +1,12 @@
+CACHE MANIFEST 
+/utils.js
+/log.js
+/customImport.js
+/crypto/auth.js
+/ui/auth.js
+/test/ui/auth.js
+/test/crypto/auth.js
+/test/customImport.js
+/test/log.js
+/test/index.js
+/index.html
