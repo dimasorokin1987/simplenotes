@@ -173,10 +173,10 @@ const appendEditButtons=(
    index=i;
    title=el
    .querySelector('b')
-   .innerHTML;
+   .innerText;
    content=el
    .querySelector('pre')
-   .innerHTML;
+   .innerText;
    ta.value=`${title}\n${content}`;
    //el.innerText.substr(1);
    alert(index);
