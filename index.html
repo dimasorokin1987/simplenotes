@@ -117,13 +117,16 @@ const updateButtons=(
 };
 
 const appendItem=(
- {title,content},
+ {title,content,isExpanded},
  el=h('div'),
  titl=h('b'),
  cont=h('pre')
 )=>{try{
  titl.innerHTML=title;
  cont.style.margin=0;
+ cont.style.display=isExpanded
+ ?'block'
+ :'none';
  cont.innerHTML=content;
  p(el,titl);
  p(el,cont);
@@ -190,6 +193,30 @@ const appendEditButtons=(
  });
 };
 
+const appendExpandButtons=(
+ itemsContainer
+)=>{
+ Array.from(
+  itemsContainer.childNodes
+ ).forEach((el,i,ar,
+  btn=h('button')
+ )=>{
+  btn.style.float='right';
+  btn.innerHTML='_';
+  el.prepend(btn);
+  btn.onclick=(e,title,content)=>{
+   if(items[i].isExpanded){
+    items[i].isExpanded=false;
+    btn.innerHTML='=';
+   }else{
+    items[i].isExpanded=true;
+    btn.innerHTML='_';
+   }
+   updateItems(items);
+  };
+ });
+};
+
 const processAutoEval=(items)=>{
  items.forEach(({
   title,content,autoeval
@@ -230,6 +257,7 @@ setSignInHandler(async(
   items=userObj;
   updateItems(items);
   appendEditButtons(itemsContainer);
+  appendExpandButtons(itemsContainer);
   processAutoEval(items);
  }
  return(isOk);
@@ -274,6 +302,7 @@ updateButtons();
 updateText(txt);
 updateItems(items);
 appendEditButtons(itemsContainer);
+appendExpandButtons(itemsContainer);
 processAutoEval(items);
 
 ononline=updateButtons;
@@ -297,6 +326,7 @@ btnLoad.onclick=async(e)=>{
  alert(JSON.stringify(items));
  updateItems(items);
  appendEditButtons(itemsContainer);
+ appendExpandButtons(itemsContainer);
  processAutoEval(items);
 };
 btnEval.onclick=e=>{
@@ -314,6 +344,7 @@ btnAppend.onclick=async(e,item)=>{
  //appendItem(item);
  updateItems(items);
  appendEditButtons(itemsContainer);
+ appendExpandButtons(itemsContainer);
  processAutoEval(items);
 };
 btnUpdate.onclick=async(e,txt,item)=>{
@@ -328,6 +359,7 @@ btnUpdate.onclick=async(e,txt,item)=>{
  //updateItem(item,index);
  updateItems(items);
  appendEditButtons(itemsContainer);
+ appendExpandButtons(itemsContainer);
  processAutoEval(items);
 };
 btnRemove.onclick=async(e)=>{
@@ -339,6 +371,7 @@ btnRemove.onclick=async(e)=>{
  ));
  updateItems(items);
  appendEditButtons(itemsContainer);
+ appendExpandButtons(itemsContainer);
 };
 
 //await(customImport('tests'));
