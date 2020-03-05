@@ -80,10 +80,10 @@ cmdpanel.style.display='flex';
 cmdpanel.style.justifyContent='space-between';
 
 const[btnEval,
- btnUpdate,btnAppend,
+ btnUpdate,btnAppend,btnRemove,
  btnLoad,btnStore
 ]=[
- h('button'),
+ h('button'),h('button'),
  h('button'),h('button'),
  h('button'),h('button')
 ];
@@ -96,6 +96,8 @@ btnUpdate.disabled=true;
 p(cmdpanel,btnUpdate);
 btnAppend.innerHTML='append';
 p(cmdpanel,btnAppend);
+btnRemove.innerHTML='remove';
+p(cmdpanel,btnRemove);
 btnStore.innerHTML='store';
 p(cmdpanel,btnStore);
 
@@ -325,6 +327,14 @@ btnUpdate.onclick=async(e,txt,item)=>{
  updateItems(items);
  appendEditButtons(itemsContainer);
  processAutoEval(items);
+};
+btnRemove.onclick=async(e)=>{
+ items.splice(i,1);
+ await(cryptoLocalStore(
+  'items_',name,password,items
+ ));
+ updateItems(items);
+ appendEditButtons(itemsContainer);
 };
 
 //await(customImport('tests'));
