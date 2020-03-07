@@ -342,6 +342,8 @@ btnStore.onclick=async(e,r)=>{
  updateButtons();
 };
 btnLoad.onclick=async(e)=>{
+ noIndex=true;
+ updateButtons();
  items=await(cryptoLoad(
   name,password
  ));
