@@ -13,7 +13,10 @@ import{customImport}from'./customImport.js';
 (async(
  name='public@simplenotes',
  password='pass',
- txt='',items=[],index
+ txt='',items=[],index,
+ isSaving,
+ isModifing,
+ noIndex=true
 )=>{try{
  customImport.assignImportMap({
  'utils':'./utils.js',
@@ -99,12 +102,10 @@ const[btnEval,
 btnEval.innerHTML='eval';
 p(cmdpanel,btnEval);
 btnUpdate.innerHTML='update';
-btnUpdate.disabled=true;
 p(cmdpanel,btnUpdate);
 btnAppend.innerHTML='append';
 p(cmdpanel,btnAppend);
 btnRemove.innerHTML='remove';
-btnRemove.disabled=true;
 p(cmdpanel,btnRemove);
 
 p(bd,cmdpanel);
@@ -114,11 +115,16 @@ const updateText=
 txt=>{ta.value=txt};
 
 const updateButtons=(
- mustHide
+ isOffline=!navigator.onLine
 )=>{
- mustHide=!navigator.onLine;
- btnLoad.disabled=mustHide;
- btnStore.disabled=mustHide;
+ btnLoad.disabled=isOffline;
+ btnStore.disabled=
+ ||isOffline
+ ||isSaving
+ ||isModifing;
+ btnAppend.disabled=isModifing;
+ btnUpdate.disabled=noIndex||isModifing;
+ btnRemove.disabled=noIndex||isModifing;
 };
 
 const appendItem=(
@@ -186,6 +192,7 @@ const appendEditButtons=(
   el.prepend(btn);
   btn.onclick=(e,title,content)=>{
    index=i;
+   noIndex=false;
    title=el
    .querySelector('b')
    .innerText;
@@ -195,8 +202,7 @@ const appendEditButtons=(
    ta.value=`${title}\n${content}`;
    //el.innerText.substr(1);
    alert(index);
-   btnUpdate.disabled=false;
-   btnRemove.disabled=false;
+   updateButtons();
   };
  });
 };
@@ -326,10 +332,14 @@ ta.oninput=async(e)=>{
 };
 
 btnStore.onclick=async(e,r)=>{
+ isSaving=true;
+ updateButtons();
  r=await(cryptoStore(
   name,password,items
  ));
  alert(r);
+ isSaving=false;
+ updateButtons();
 };
 btnLoad.onclick=async(e)=>{
  items=await(cryptoLoad(
@@ -345,12 +355,16 @@ btnEval.onclick=e=>{
  eval(txt);
 };
 btnAppend.onclick=async(e,item)=>{
+ isModifing=true;
+ updateButtons();
  item=createItem(txt);
  alert(JSON.stringify(item));
  items.push(item);
  await(cryptoLocalStore(
   'items_',name,password,items
  ));
+ index=items.length-1;
+ noIndex=false;
  //localStorage.items=JSON
  //.stringify(items);
  //appendItem(item);
@@ -358,8 +372,12 @@ btnAppend.onclick=async(e,item)=>{
  appendEditButtons(itemsContainer);
  appendExpandButtons(itemsContainer);
  processAutoEval(items);
+ isModifing=true;
+ updateButtons();
 };
 btnUpdate.onclick=async(e,txt,item)=>{
+ isModifing=true;
+ updateButtons();
  alert(index);
  txt=ta.value;
  item=createItem(txt);
@@ -373,10 +391,12 @@ btnUpdate.onclick=async(e,txt,item)=>{
  appendEditButtons(itemsContainer);
  appendExpandButtons(itemsContainer);
  processAutoEval(items);
+ isModifing=false;
+ updateButtons();
 };
 btnRemove.onclick=async(e)=>{
- btnUpdate.disabled=true;
- btnRemove.disabled=true;
+ isModifing=true;
+ updateButtons();
  items.splice(index,1);
  await(cryptoLocalStore(
   'items_',name,password,items
@@ -384,6 +404,8 @@ btnRemove.onclick=async(e)=>{
  updateItems(items);
  appendEditButtons(itemsContainer);
  appendExpandButtons(itemsContainer);
+ isModifing=false;
+ updateButtons();
 };
 
 //await(customImport('tests'));
