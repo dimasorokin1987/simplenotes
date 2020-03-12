@@ -121,8 +121,6 @@ p(bd,btnImport);
 btnExport.style.float='right';
 btnExport.innerHTML='export';
 p(bd,btnExport);
-alert(btnExport)
-
 
 const updateText=
 txt=>{ta.value=txt};
@@ -434,7 +432,9 @@ const readTextFileAsync=file=>(
  }])
 );
 
-btnImport.onclick=async()=>{
+btnImport.onclick=async(
+ e,input
+)=>{
  input=h('input');
  input.type='file';
  Object.assign(input.style,{
@@ -467,6 +467,9 @@ btnImport.onclick=async()=>{
  };
 
  p(bd,input);
+};
+btnExport.onclick=async(e)=>{
+
 };
 
 //await(customImport('tests'));
