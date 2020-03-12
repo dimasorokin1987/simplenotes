@@ -36,7 +36,7 @@ import{customImport}from'./customImport.js';
  'htm':'https://unpkg.com/htm?module'
  });
  globalThis.customImport=customImport;
- const{$,h,p,wait,throttle}=await(customImport('utils'));
+ const{$,h,p,wait,create}=await(customImport('utils'));
 
  const[
   {createMultiStateLoginForm},
@@ -434,7 +434,7 @@ const readTextFileAsync=file=>(
 
 btnImport.onclick=async(
  e,input
-)=>{
+)=>{try{
  input=h('input');
  input.type='file';
  Object.assign(input.style,{
@@ -467,9 +467,9 @@ btnImport.onclick=async(
  };
 
  p(bd,input);
-};
+}catch(e){alert(e)}};
 btnExport.onclick=async(e)=>{
-
+ alert('export');
 };
 
 //await(customImport('tests'));
