@@ -111,6 +111,18 @@ p(cmdpanel,btnRemove);
 p(bd,cmdpanel);
 p(bd,itemsContainer);
 
+const[
+ btnImport,btnExport
+]=[
+ h('button'),h('button')
+];
+btnImport.innerHTML='import';
+p(bd,btnImport);
+btnExport.style.float='right';
+btnExport.innerHTML='export';
+p(bd,btnExport);
+
+
 const updateText=
 txt=>{ta.value=txt};
 
@@ -408,6 +420,52 @@ btnRemove.onclick=async(e)=>{
  appendExpandButtons(itemsContainer);
  isModifing=false;
  updateButtons();
+};
+
+const readTextFileAsync=file=>(
+ create(Promise,[(resolve,reject)=>{
+  let reader=create(FileReader);
+  reader.onload=()=>{
+   resolve(reader.result);
+  };
+  reader.onerror=reject;
+  reader.readAsText(file);
+ }])
+);
+
+btnImport.onclick=async()=>{
+ input=h('input');
+ input.type='file';
+ Object.assign(input.style,{
+  display:'block',
+  position:'fixed',
+  left:0,
+  top:'50%',
+  background:'black',
+  color:'white',
+  padding:'10px'
+ });
+ input.onchange=async(
+  e,file,url,res,obj
+ )=>{
+  file=input.files[0];
+  url=await(readTextFileAsync(file));
+  alert(url);
+  res=await(fetch(url));
+  obj=await(res.json());
+  alert(JSON.stringify(obj));
+  items=obj;
+  await(cryptoLocalStore(
+   'items_',name,password,items
+  ));
+  updateItems(items);
+  appendEditButtons(itemsContainer);
+  appendExpandButtons(itemsContainer);
+  processAutoEval(items);
+  bd.removeChild(input);
+ };
+
+ p(bd,input);
 };
 
 //await(customImport('tests'));
