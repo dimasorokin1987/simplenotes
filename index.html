@@ -203,16 +203,16 @@ const appendEditButtons=(
   el.prepend(btn);
   btn.onclick=(e,title,content)=>{
    index=i;
-   noIndex=false;
-   title=el
-   .querySelector('b')
-   .innerText;
-   content=el
-   .querySelector('pre')
-   .innerText;
-   ta.value=`${title}\n${content}`;
-   //el.innerText.substr(1);
    alert(index);
+   noIndex=false;
+   const{
+    title,content
+   }=items[index];
+   //title=el.querySelector('b').innerText;
+   //content=el.querySelector('pre').innerText;
+   //alert(title);
+   txt=`${title}\n${content}`;
+   updateText(txt);
    updateButtons();
   };
  });
