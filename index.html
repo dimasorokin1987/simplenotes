@@ -421,6 +421,32 @@ btnRemove.onclick=async(e)=>{
  updateButtons();
 };
 
+const waitSelectUploadFile=()=>(
+ create(Promise,[(
+  resolve,reject,input
+ )=>{
+  input=h('input');
+  input.type='file';
+  Object.assign(input.style,{
+   display:'block',
+   position:'fixed',
+   left:0,
+   top:'50%',
+   background:'black',
+   color:'white',
+   padding:'10px'
+  });
+  p(bd,input);
+  input.onchange=async(
+   e,file
+  )=>{
+   file=input.files[0];
+   resolve(file);
+   bd.removeChild(input);
+  };
+ }])
+);
+
 const readTextFileAsync=file=>(
  create(Promise,[(resolve,reject)=>{
   let reader=create(FileReader);
@@ -432,45 +458,55 @@ const readTextFileAsync=file=>(
  }])
 );
 
-btnImport.onclick=async(
- e,input
-)=>{try{
- input=h('input');
- input.type='file';
- Object.assign(input.style,{
+const downloadJson=(
+ obj,filename,str,a
+)=>{
+ str="data:text/json;charset=utf-8,"
+ +encodeURIComponent(
+  JSON.stringify(obj)
+ );
+ a=document.createElement('a');
+ a.innerHTML='items.json';
+ a.href=str;
+ a.download=filename;
+ a.target='_blank';
+ Object.assign(a.style,{
   display:'block',
   position:'fixed',
   left:0,
   top:'50%',
+  padding:'10px',
   background:'black',
-  color:'white',
-  padding:'10px'
+  color:'white'
  });
- input.onchange=async(
-  e,file,url,res,obj
- )=>{
-  file=input.files[0];
-  url=await(readTextFileAsync(file));
-  alert(url);
-  res=await(fetch(url));
-  obj=await(res.json());
-  alert(JSON.stringify(obj));
-  items=obj;
-  await(cryptoLocalStore(
-   'items_',name,password,items
-  ));
-  updateItems(items);
-  appendEditButtons(itemsContainer);
-  appendExpandButtons(itemsContainer);
-  processAutoEval(items);
-  bd.removeChild(input);
+ a.onclick=e=>{
+  document.body.removeChild(el);
  };
-
- p(bd,input);
-}catch(e){alert(e)}};
-btnExport.onclick=async(e)=>{
- alert('export');
+ p(bd,a);
 };
+
+btnImport.onclick=async(
+ e,file,url,res,obj
+)=>{try{
+ file=await(waitSelectUploadFile());
+ url=await(readTextFileAsync(file));
+ alert(url);
+ res=await(fetch(url));
+ obj=await(res.json());
+ alert(JSON.stringify(obj));
+ items=obj;
+ await(cryptoLocalStore(
+  'items_',name,password,items
+ ));
+ updateItems(items);
+ appendEditButtons(itemsContainer);
+ appendExpandButtons(itemsContainer);
+ processAutoEval(items);
+}catch(e){alert(e)}};
+
+btnExport.onclick=async(e)=>{try{
+ downloadJson(items,'items.json');
+}catch(e){alert(e)}};
 
 //await(customImport('tests'));
 }catch(e){alert(e)}})();
