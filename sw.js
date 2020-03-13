@@ -19,7 +19,7 @@ self.addEventListener('install',event=>{
 });
 
 self.addEventListener('activate',event=>{
- const cacheWhitelist=['v1'];
+ /*const cacheWhitelist=['v1'];
  //alert('service worker: activation')
  event.waitUntil(
   caches.forEach((cache,cacheName)=>{
@@ -27,7 +27,7 @@ self.addEventListener('activate',event=>{
     return(caches.delete(cacheName));
    }
   })
- );
+ );*/
 });
 
 self.addEventListener('fetch',async(event)=>{
