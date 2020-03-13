@@ -11,7 +11,7 @@
 import{customImport}from'./customImport.js';
 
 (async(
- sw,reg,
+ reg,
  name='public@simplenotes',
  password='pass',
  txt='',items=[],index,
@@ -54,10 +54,8 @@ import{customImport}from'./customImport.js';
   customImport('ui/auth'),
   customImport('crypto/auth')
  ]));
-/*
- sw=navigator.serviceWorker;
- if(sw){
-  reg=await(sw.register(
+ if(navigator.serviceWorker){
+  reg=await(navigator.serviceWorker.register(
    '/simplenotes/sw.js',
    {scope:'/simplenotes/'}
   ));
@@ -69,7 +67,7 @@ import{customImport}from'./customImport.js';
    alert('Service worker active');
   }
  }
-*/
+
 const{
  form,
  setCheckStatusHandler,
