@@ -1,5 +1,5 @@
 self.addEventListener('install',event=>{
- event.waitUntil(
+ /*event.waitUntil(
   caches.open('v1')
   .then(cache=>cache.addAll([
    '/simplenotes/',
@@ -15,11 +15,11 @@ self.addEventListener('install',event=>{
    '/simplenotes/test/log.js',
    '/simplenotes/test/customImport.js
   ]))
- );
+ );*/
 });
 
 self.addEventListener('activate',event=>{
- const cacheWhitelist=['v1'];
+ /*const cacheWhitelist=['v1'];
  alert('service worker: activation')
  event.waitUntil(
   caches.forEach((cache,cacheName)=>{
@@ -27,11 +27,11 @@ self.addEventListener('activate',event=>{
     return(caches.delete(cacheName));
    }
   })
- );
+ );*/
 });
 
 self.addEventListener('fetch',async(event)=>{
- let url=new URL(event.request.url);
+/* let url=new URL(event.request.url);
  let responseP=caches.match(url);
  let response=null;
  if(responseP){
@@ -42,5 +42,5 @@ self.addEventListener('fetch',async(event)=>{
   let cache=await(caches.open('v1'));
   cache.put(event.request,responseClone);
  }
- event.respondWith(response);
+ event.respondWith(response);*/
 });
