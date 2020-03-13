@@ -1,21 +1,33 @@
+const cacheWhitelist=['v1'];
+
 self.addEventListener('install',event=>{
  event.waitUntil(
-  caches.open('v1').then(cache=>(
-   cache.addAll([
-    '/simplenotes/',
-    '/simplenotes/index.html',
-    '/simplenotes/utils.js',
-    '/simplenotes/log.js',
-    '/simplenotes/crypto/auth.js',
-    '/simplenotes/ui/auth.js',
-    '/simplenotes/customImport.js',
-    '/simplenotes/test/index.js',
-    '/simplenotes/test/ui/auth.js',
-    '/simplenotes/test/crypto/auth.js',
-    '/simplenotes/test/log.js',
-    '/simplenotes/test/customImport.js'
-   ]);
-  ))
+  caches.open('v1')
+  .then(cache=>cache.addAll([
+   '/simplenotes/',
+   '/simplenotes/index.html',
+   '/simplenotes/utils.js',
+   '/simplenotes/log.js',
+   '/simplenotes/crypto/auth.js',
+   '/simplenotes/ui/auth.js',
+   '/simplenotes/customImport.js',
+   '/simplenotes/test/index.js',
+   '/simplenotes/test/ui/auth.js',
+   '/simplenotes/test/crypto/auth.js',
+   '/simplenotes/test/log.js',
+   '/simplenotes/test/customImport.js
+  ]))
+ );
+});
+
+self.addEventListener('activate',event=>{
+ alert('service worker: activation')
+ event.waitUntil(
+  caches.forEach((cache,cacheName)=>{
+   if(!cacheWhitelist.includes(cacheName)) {
+    return(caches.delete(cacheName));
+   }
+  })
  );
 });
 
