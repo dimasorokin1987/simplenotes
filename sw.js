@@ -1,5 +1,5 @@
 self.addEventListener('install',event=>{
- /*event.waitUntil(
+ event.waitUntil(
   caches.open('v1')
   .then(cache=>cache.addAll([
    '/simplenotes/',
@@ -15,7 +15,7 @@ self.addEventListener('install',event=>{
    '/simplenotes/test/log.js',
    '/simplenotes/test/customImport.js
   ]))
- );*/
+ );
 });
 
 self.addEventListener('activate',event=>{
