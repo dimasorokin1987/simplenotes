@@ -20,7 +20,7 @@ self.addEventListener('install',event=>{
 
 self.addEventListener('activate',event=>{
  const cacheWhitelist=['v1'];
- alert('service worker: activation')
+ //alert('service worker: activation')
  event.waitUntil(
   caches.forEach((cache,cacheName)=>{
    if(!cacheWhitelist.includes(cacheName)) {
