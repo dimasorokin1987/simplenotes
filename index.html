@@ -11,6 +11,7 @@
 import{customImport}from'./customImport.js';
 
 (async(
+ sw,reg,
  name='public@simplenotes',
  password='pass',
  txt='',items=[],index,
@@ -53,6 +54,21 @@ import{customImport}from'./customImport.js';
   customImport('ui/auth'),
   customImport('crypto/auth')
  ]));
+
+ sw=navigator.serviceWorker;
+ if(sw){
+  reg=await(sw.register(
+   '/simplenotes/sw.js',
+   {scope:'/simplenotes/'}
+  ));
+  if(reg.installing){
+   alert('Service worker installing');
+  }else if(reg.waiting){
+   alert('Service worker installed');
+  }else if(reg.active){
+   alert('Service worker active');
+  }
+ }
 
 const{
  form,
