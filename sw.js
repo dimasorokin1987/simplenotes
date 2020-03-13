@@ -1,5 +1,3 @@
-const cacheWhitelist=['v1'];
-
 self.addEventListener('install',event=>{
  event.waitUntil(
   caches.open('v1')
@@ -21,6 +19,7 @@ self.addEventListener('install',event=>{
 });
 
 self.addEventListener('activate',event=>{
+ const cacheWhitelist=['v1'];
  alert('service worker: activation')
  event.waitUntil(
   caches.forEach((cache,cacheName)=>{
@@ -32,16 +31,16 @@ self.addEventListener('activate',event=>{
 });
 
 self.addEventListener('fetch',async(event)=>{
-  let url=new URL(event.request.url);
-  let responseP=caches.match(url);
-  let response=null;
-  if(responseP){
-   response=await(responseP);
-  }else{
-   response=await(fetch(event.request));
-   let responseClone=response.clone();
-   let cache=await(caches.open('v1'));
-   cache.put(event.request,responseClone);
-  }
-  event.respondWith(response);
+ let url=new URL(event.request.url);
+ let responseP=caches.match(url);
+ let response=null;
+ if(responseP){
+  response=await(responseP);
+ }else{
+  response=await(fetch(event.request));
+  let responseClone=response.clone();
+  let cache=await(caches.open('v1'));
+  cache.put(event.request,responseClone);
+ }
+ event.respondWith(response);
 });
