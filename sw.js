@@ -1,4 +1,5 @@
 self.addEventListener('install',event=>{
+alert(111);
 /* event.waitUntil(
   caches.open('v2')
   .then(cache=>cache.addAll([
@@ -19,6 +20,7 @@ self.addEventListener('install',event=>{
 });
 
 self.addEventListener('activate',event=>{
+alert(222);
  /*const cacheWhitelist=['v1'];
  //alert('service worker: activation')
  event.waitUntil(
