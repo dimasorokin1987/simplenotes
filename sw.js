@@ -53,4 +53,4 @@ self.addEventListener('message',event=>{
  ||event.source;
   //switch (event.data
  sender.postMessage("response from sw!");
-};
+});
