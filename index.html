@@ -30,8 +30,43 @@ import{customImport}from'./customImport.js';
    alert('Service worker installed');
   }else if(reg.active){
    alert('Service worker active');
+
+   let messageChannel=new MessageChannel();
+   messageChannel.port1
+   .onmessage=e=>{
+    alert(e.data);
+   };
+   navigator.serviceWorker
+   .controller.postMessage(
+    message,
+    [messageChannel.port2]
+   );
   }
  }
+
+
+
+function serviceWorkerRequest(message) {
+  if ('serviceWorker' in navigator) {
+    if ( navigator.serviceWorker.controller == null ) {
+      return Promise.reject("No service worker controller.");
+    }
+    return new Promise(function(resolve, reject) {
+      var messageChannel = new MessageChannel();
+      messageChannel.port1.onmessage = function(event) {
+        if (event.data.error) {
+          reject(event.data.error);
+        } else {
+          resolve(event.data);
+        }
+      };
+      navigator.serviceWorker.controller.postMessage(message, [messageChannel.port2]);
+    });
+  } else {
+    return Promise.reject("No service worker.");
+  }
+}
+
 
  customImport.assignImportMap({
  'utils':'./utils.js',
