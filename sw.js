@@ -54,5 +54,5 @@ self.addEventListener('message',event=>{
  ||event.ports&&event.ports[0]
  ||event.source;
   //switch (event.data
- sender.postMessage("response from sw!"+'aaaa='+aaaa+';bbbb='+bbbb);
+ sender.postMessage("response from sw!"+'aaa='+aaa+';self.bbb='+bbb);
 });
