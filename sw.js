@@ -23,14 +23,14 @@ const cacheResources=async()=>{
 }
 
 self.addEventListener(
- 'install',async(e)=>{try{
+ 'install',async(event)=>{try{
  // event.waitUntil(self.skipWaiting());
   logs.push(333);
   event.waitUntil(
    cacheResources()
   );
   logs.push(222);
- }catch(e){errors.push(e)}}
+ }catch(error){errors.push(error)}}
 );
 
 self.addEventListener('activate',event=>{
