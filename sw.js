@@ -1,8 +1,8 @@
-let aaa=111;
-self.bbb=222;
+let aaa=[1];
+self.bbb=[2];
 self.addEventListener('install',event=>{
- aaa=333;
- self.bbb=333;
+ aaa.push(333);
+ self.bbb.push(333);
  event.waitUntil(self.skipWaiting());
 /* event.waitUntil(
   caches.open('v2')
@@ -24,8 +24,8 @@ self.addEventListener('install',event=>{
 });
 
 self.addEventListener('activate',event=>{
- aaa=555;
- self.bbb=555;
+ aaa.push(555);
+ self.bbb.push(555);
  event.waitUntil(self.skipWaiting());
  /*const cacheWhitelist=['v1'];
  //alert('service worker: activation')
