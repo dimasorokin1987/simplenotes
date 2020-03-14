@@ -1,7 +1,7 @@
 const urlsToCache=[
 // '/',
- '/simplenotes/index.html',/*
- '/utils.js',
+ '/simplenotes/index.html',
+ '/simplenotes/utils.js',/*
  '/log.js',
  '/crypto/auth.js',
  '/ui/auth.js',
