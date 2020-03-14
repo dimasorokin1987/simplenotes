@@ -1,6 +1,6 @@
 self.addEventListener('install',event=>{
  event.waitUntil(
-  caches.open('v1')
+  caches.open('v2')
   .then(cache=>cache.addAll([
    '/simplenotes/',
    '/simplenotes/index.html',
@@ -31,7 +31,7 @@ self.addEventListener('activate',event=>{
 });
 
 self.addEventListener('fetch',async(event)=>{
- let url=new URL(event.request.url);
+/* let url=new URL(event.request.url);
  let responseP=caches.match(url);
  let response=null;
  if(responseP){
@@ -42,5 +42,5 @@ self.addEventListener('fetch',async(event)=>{
   let cache=await(caches.open('v1'));
   cache.put(event.request,responseClone);
  }
- event.respondWith(response);
+ event.respondWith(response);*/
 });
