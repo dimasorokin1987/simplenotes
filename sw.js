@@ -1,5 +1,6 @@
-const urlsToCache=[/*
- '/simplenotes/',
+const urlsToCache=[
+ '/index.html'
+ /*'/simplenotes/',
  '/simplenotes/index.html',
  '/simplenotes/utils.js',
  '/simplenotes/log.js',
