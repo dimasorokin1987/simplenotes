@@ -1,7 +1,7 @@
 const urlsToCache=[
- '/',
+// '/',
  '/index.html',
- '/utils.js',
+ '/utils.js',/*
  '/log.js',
  '/crypto/auth.js',
  '/ui/auth.js',
@@ -10,7 +10,7 @@ const urlsToCache=[
  '/test/ui/auth.js',
  '/test/crypto/auth.js',
  '/test/log.js',
- '/test/customImport.js'
+ '/test/customImport.js'*/
 ];
 
 let logs=[];
