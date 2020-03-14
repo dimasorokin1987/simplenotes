@@ -1,5 +1,5 @@
 const urlsToCache=[
-// '/',
+ '/simplenotes/cache.appcache',
  '/simplenotes/index.html',
  '/simplenotes/customImport.js',
  '/simplenotes/utils.js',
