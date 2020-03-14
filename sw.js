@@ -1,20 +1,17 @@
 const urlsToCache=[
- '/index.html'
- /*'/simplenotes/',
- '/simplenotes/index.html',
- '/simplenotes/utils.js',
- '/simplenotes/log.js',
- '/simplenotes/crypto/auth.js',
- '/simplenotes/ui/auth.js',
- '/simplenotes/customImport.js',
- '/simplenotes/test/index.js',
- '/simplenotes/test/ui/auth.js',
- '/simplenotes/test/crypto/auth.js',
- '/simplenotes/test/log.js',
- '/simplenotes/test/customImport.js'
-*/
+ '/',
+ '/index.html',
+ '/utils.js',
+ '/log.js',
+ '/crypto/auth.js',
+ '/ui/auth.js',
+ '/customImport.js',
+ '/test/index.js',
+ '/test/ui/auth.js',
+ '/test/crypto/auth.js',
+ '/test/log.js',
+ '/test/customImport.js'
 ];
-
 
 let logs=[];
 let errors=[];
