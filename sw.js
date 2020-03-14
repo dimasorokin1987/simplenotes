@@ -1,27 +1,34 @@
+const urlsToCache=[
+ '/simplenotes/',
+ '/simplenotes/index.html',
+ '/simplenotes/utils.js',
+ '/simplenotes/log.js',
+ '/simplenotes/crypto/auth.js',
+ '/simplenotes/ui/auth.js',
+ '/simplenotes/customImport.js',
+ '/simplenotes/test/index.js',
+ '/simplenotes/test/ui/auth.js',
+ '/simplenotes/test/crypto/auth.js',
+ '/simplenotes/test/log.js',
+ '/simplenotes/test/customImport.js'
+];
+
+
 let logs=[];
 let errors=[];
+
+const cacheResources=async()=>{
+  const cache = await caches.open('v1')
+  return cache.addAll(urlsToCache)
+}
+
 self.addEventListener(
  'install',async(e)=>{try{
  // event.waitUntil(self.skipWaiting());
   logs.push(333);
-  let cache=await(
-   event.waitUntil(caches.open('v2'))
+  event.waitUntil(
+   cacheResources()
   );
-  logs.push(111);
-  cache.addAll([
-   '/simplenotes/',
-   '/simplenotes/index.html',
-   '/simplenotes/utils.js',
-   '/simplenotes/log.js',
-   '/simplenotes/crypto/auth.js',
-   '/simplenotes/ui/auth.js',
-   '/simplenotes/customImport.js',
-   '/simplenotes/test/index.js',
-   '/simplenotes/test/ui/auth.js',
-   '/simplenotes/test/crypto/auth.js',
-   '/simplenotes/test/log.js',
-   '/simplenotes/test/customImport.js'
-  ]);
   logs.push(222);
  }catch(e){errors.push(e)}}
 );
