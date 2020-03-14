@@ -1,16 +1,11 @@
 const urlsToCache=[
 // '/',
  '/simplenotes/index.html',
- '/simplenotes/utils.js',/*
- '/log.js',
- '/crypto/auth.js',
- '/ui/auth.js',
- '/customImport.js',
- '/test/index.js',
- '/test/ui/auth.js',
- '/test/crypto/auth.js',
- '/test/log.js',
- '/test/customImport.js'*/
+ '/simplenotes/customImport.js',
+ '/simplenotes/utils.js',
+ '/simplenotes/log.js',
+ '/simplenotes/crypto/auth.js',
+ '/simplenotes/ui/auth.js'
 ];
 
 let logs=[];
@@ -47,7 +42,9 @@ self.addEventListener('activate',event=>{
 
 self.addEventListener(
  'fetch',async(event)=>{
+  logs.push(event.request.url);
   let url=new URL(event.request.url);
+  logs.push(url);
   let responseP=caches.match(url);
   let response=null;
   if(responseP){
