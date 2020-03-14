@@ -19,6 +19,20 @@ import{customImport}from'./customImport.js';
  isModifing,
  noIndex=true
 )=>{try{
+ if(navigator.serviceWorker){
+  reg=await(navigator.serviceWorker.register(
+   '/simplenotes/sw.js',
+   {scope:'/simplenotes/'}
+  ));
+  if(reg.installing){
+   alert('Service worker installing');
+  }else if(reg.waiting){
+   alert('Service worker installed');
+  }else if(reg.active){
+   alert('Service worker active');
+  }
+ }
+
  customImport.assignImportMap({
  'utils':'./utils.js',
  'test/customImport/stub':'./test/customImport/stub.js',
@@ -54,19 +68,6 @@ import{customImport}from'./customImport.js';
   customImport('ui/auth'),
   customImport('crypto/auth')
  ]));
- if(navigator.serviceWorker){
-  reg=await(navigator.serviceWorker.register(
-   '/simplenotes/sw.js',
-   {scope:'/simplenotes/'}
-  ));
-  if(reg.installing){
-   alert('Service worker installing');
-  }else if(reg.waiting){
-   alert('Service worker installed');
-  }else if(reg.active){
-   alert('Service worker active');
-  }
- }
 
 const{
  form,
