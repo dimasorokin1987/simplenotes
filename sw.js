@@ -1,4 +1,4 @@
-let aaa=1111;
+//let aaa=1111;
 self.bbb=2222;
 self.addEventListener('install',event=>{
  event.waitUntil(self.skipWaiting());
@@ -54,5 +54,5 @@ self.addEventListener('message',event=>{
  ||event.ports&&event.ports[0]
  ||event.source;
   //switch (event.data
- sender.postMessage("response from sw!"+'aaa='+aaa+';self.bbb='+bbb);
+ sender.postMessage("response from sw!"+'self.bbb='+self.bbb);
 });
