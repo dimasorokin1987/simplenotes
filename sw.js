@@ -1,4 +1,4 @@
-const urlsToCache=[
+const urlsToCache=[/*
  '/simplenotes/',
  '/simplenotes/index.html',
  '/simplenotes/utils.js',
@@ -11,6 +11,7 @@ const urlsToCache=[
  '/simplenotes/test/crypto/auth.js',
  '/simplenotes/test/log.js',
  '/simplenotes/test/customImport.js'
+*/
 ];
 
 
@@ -35,33 +36,34 @@ self.addEventListener(
 
 self.addEventListener('activate',event=>{
  logs.push(444);
- event.waitUntil(self.skipWaiting());
- /*const cacheWhitelist=['v1'];
- //alert('service worker: activation')
+ //event.waitUntil(self.skipWaiting());
+ const cacheWhitelist=['v1'];
  event.waitUntil(
   caches.forEach((cache,cacheName)=>{
    if(!cacheWhitelist.includes(cacheName)) {
     return(caches.delete(cacheName));
    }
   })
- );*/
+ );
 });
-/*
-self.addEventListener('fetch',async(event)=>{
- let url=new URL(event.request.url);
- let responseP=caches.match(url);
- let response=null;
- if(responseP){
-  response=await(responseP);
- }else{
-  response=await(fetch(event.request));
-  let responseClone=response.clone();
-  let cache=await(caches.open('v1'));
-  cache.put(event.request,responseClone);
+
+self.addEventListener(
+ 'fetch',async(event)=>{
+  let url=new URL(event.request.url);
+  let responseP=caches.match(url);
+  let response=null;
+  if(responseP){
+   response=await(responseP);
+  }else{
+   response=await(fetch(event.request));
+   let responseClone=response.clone();
+   let cache=await(caches.open('v1'));
+   cache.put(event.request,responseClone);
+  }
+  event.respondWith(response);
  }
- event.respondWith(response);
-});
-*/
+);
+
 self.addEventListener('message',event=>{
  let sender=null
  ||event.ports&&event.ports[0]
