@@ -1,12 +1,14 @@
-let aaa=[1];
-self.bbb=[2];
-self.addEventListener('install',event=>{
- aaa.push(333);
- self.bbb.push(333);
- event.waitUntil(self.skipWaiting());
-/* event.waitUntil(
-  caches.open('v2')
-  .then(cache=>cache.addAll([
+let logs=[];
+let errors=[];
+self.addEventListener(
+ 'install',async(e)=>{try{
+ // event.waitUntil(self.skipWaiting());
+  logs.push(333);
+  let cache=await(
+   event.waitUntil(caches.open('v2'))
+  );
+  logs.push(111);
+  cache.addAll([
    '/simplenotes/',
    '/simplenotes/index.html',
    '/simplenotes/utils.js',
@@ -19,13 +21,13 @@ self.addEventListener('install',event=>{
    '/simplenotes/test/crypto/auth.js',
    '/simplenotes/test/log.js',
    '/simplenotes/test/customImport.js'
-  ]))
- );*/
-});
+  ]);
+  logs.push(222);
+ }catch(e){errors.push(e)}}
+);
 
 self.addEventListener('activate',event=>{
- aaa.push(555);
- self.bbb.push(555);
+ logs.push(444);
  event.waitUntil(self.skipWaiting());
  /*const cacheWhitelist=['v1'];
  //alert('service worker: activation')
@@ -58,5 +60,7 @@ self.addEventListener('message',event=>{
  ||event.ports&&event.ports[0]
  ||event.source;
   //switch (event.data
- sender.postMessage("response from sw!"+'aaa='+aaa+';self.bbb='+self.bbb);
+ sender.postMessage(
+  JSON.stringify({logs,errors})
+ );
 });
