@@ -43,7 +43,7 @@ const updateCache=async(
   logs.push('cashes delete ok:'+r);
   if(!caches.has(currentVersion)){
    await(cacheResources(currentVersion));
-   logs.push(cache new version ok');
+   logs.push('cache new version ok');
   }
  }catch(error){errors.push(error)}
 };
