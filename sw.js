@@ -1,3 +1,7 @@
+let logs=[];
+let errors=[];
+
+const versionUrl='/simplenotes/version';
 const urlsToCache=[
  '/simplenotes/cache.appcache',
  '/simplenotes/index.html',
@@ -8,13 +12,41 @@ const urlsToCache=[
  '/simplenotes/ui/auth.js'
 ];
 
-let logs=[];
-let errors=[];
+const fetchVersion=async(r,v)=>{
+ r=await(fetch(versionUrl));
+ v=await(r.text());
+ return(v);
+};
 
-const cacheResources=async()=>{
-  const cache = await caches.open('v1')
-  return cache.addAll(urlsToCache)
-}
+const cacheResources=async(
+ version,cache
+)=>{
+ if(version===undefined){
+  version=await(fetchVersion());
+ }
+ cache=await(caches.open(version));
+ await(cache.addAll(urlsToCache));
+};
+
+const updateCache=async(
+ currentVersion,
+ cacheNames,
+ arpr,r
+)=>{
+ try{
+  currentVersion=await(fetchVersion());
+  cacheNames=await(caches.keys());
+  arpr=cacheNames
+  .filter(cn=>(cn!==currentVersion))
+  .map(cn=>{caches.delete(cacheName)});
+  r=await(Promise.all(arpr));
+  logs.push('cashes delete ok:'+r);
+  if(!caches.has(currentVersion)){
+   await(cacheResources(currentVersion));
+   logs.push(cache new version ok');
+  }
+ }catch(error){errors.push(error)}
+};
 
 self.addEventListener(
  'install',async(event)=>{try{
@@ -30,13 +62,8 @@ self.addEventListener(
 self.addEventListener('activate',event=>{
  logs.push(444);
  //event.waitUntil(self.skipWaiting());
- const cacheWhitelist=['v1'];
  event.waitUntil(
-  caches.forEach((cache,cacheName)=>{
-   if(!cacheWhitelist.includes(cacheName)) {
-    return(caches.delete(cacheName));
-   }
-  })
+  updateCache()
  );
 });
 
