@@ -22,3 +22,14 @@ export const throttle=(func,tm=0,{
   afterLast(arg);
  },tm,arg);
 };
+export const evalViaScript=src=>(
+ create(Promise,[(
+  res,rej,bd,script
+ )=>{
+  bd=$('body');
+  script=h('script');
+  script.src=src;
+  script.onload=res;
+  p(bd,script);
+ }])
+);
