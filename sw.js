@@ -26,6 +26,7 @@ const cacheResources=async(
  }
  cache=await(caches.open(version));
  await(cache.addAll(urlsToCache));
+ logs.push('cached resources version:'+version);
 };
 
 const updateCache=async(
@@ -51,16 +52,15 @@ const updateCache=async(
 self.addEventListener(
  'install',async(event)=>{try{
  // event.waitUntil(self.skipWaiting());
-  logs.push(333);
+  logs.push('service worker install');
   event.waitUntil(
    cacheResources()
   );
-  logs.push(222);
  }catch(error){errors.push(error)}}
 );
 
 self.addEventListener('activate',event=>{
- logs.push(444);
+ logs.push('service worker activate');
  //event.waitUntil(self.skipWaiting());
  event.waitUntil(
   updateCache()
