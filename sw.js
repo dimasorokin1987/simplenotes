@@ -21,12 +21,16 @@ const fetchVersion=async(r,v)=>{
 const cacheResources=async(
  version,cache
 )=>{
- if(version===undefined){
-  version=await(fetchVersion());
+ if(navigator.onLine){
+  if(version===undefined){
+   version=await(fetchVersion());
+  }
+  cache=await(caches.open(version));
+  await(cache.addAll(urlsToCache));
+  logs.push('cached resources version:'+version);
+ }else{
+  logs.push('cache resourses: offline');
  }
- cache=await(caches.open(version));
- await(cache.addAll(urlsToCache));
- logs.push('cached resources version:'+version);
 };
 
 const updateCache=async(
@@ -35,16 +39,20 @@ const updateCache=async(
  arpr,r
 )=>{
  try{
-  currentVersion=await(fetchVersion());
-  cacheNames=await(caches.keys());
-  arpr=cacheNames
-  .filter(cn=>(cn!==currentVersion))
-  .map(cn=>{caches.delete(cacheName)});
-  r=await(Promise.all(arpr));
-  logs.push('cashes delete ok:'+r);
-  if(!caches.has(currentVersion)){
-   await(cacheResources(currentVersion));
-   logs.push('cache new version ok');
+  if(navigator.onLine){
+   currentVersion=await(fetchVersion());
+   cacheNames=await(caches.keys());
+   arpr=cacheNames
+   .filter(cn=>(cn!==currentVersion))
+   .map(cn=>{caches.delete(cacheName)});
+   r=await(Promise.all(arpr));
+   logs.push('cashes delete ok:'+r);
+   if(!caches.has(currentVersion)){
+    await(cacheResources(currentVersion));
+    logs.push('cache new version ok');
+   }
+  }else{
+   logs.push('update cache: offline');
   }
  }catch(error){errors.push(error)}
 };
