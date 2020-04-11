@@ -10,7 +10,8 @@ const urlsToCache=[
  '/simplenotes/log.js',
  '/simplenotes/crypto/auth.js',
  '/simplenotes/ui/auth.js',
- '/simplenotes/sw.js'
+ '/simplenotes/sw.js',
+ '/simplenotes/manifest.json'
 ];
 
 const cacheResources=async()=>{
