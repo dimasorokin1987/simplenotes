@@ -3,15 +3,16 @@ let logs=[];
 let errors=[];
 
 const urlsToCache=[
- '/cache.appcache',
- '/index.html',
- '/customImport.js',
- '/utils.js',
- '/log.js',
- '/crypto/auth.js',
- '/ui/auth.js',
- '/sw.js',
- '/manifest.json'
+ 'https://dimasorokin1987.github.io/simplenotes/',
+ 'https://dimasorokin1987.github.io/simplenotes/cache.appcache',
+ 'https://dimasorokin1987.github.io/simplenotes/index.html',
+ 'https://dimasorokin1987.github.io/simplenotes/customImport.js',
+ 'https://dimasorokin1987.github.io/simplenotes/utils.js',
+ 'https://dimasorokin1987.github.io/simplenotes/log.js',
+ 'https://dimasorokin1987.github.io/simplenotes/crypto/auth.js',
+ 'https://dimasorokin1987.github.io/simplenotes/ui/auth.js',
+ 'https://dimasorokin1987.github.io/simplenotes/sw.js',
+ 'https://dimasorokin1987.github.io/simplenotes/manifest.json'
 ];
 
 const cacheResources=async()=>{
