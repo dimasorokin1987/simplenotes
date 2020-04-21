@@ -3,15 +3,16 @@ let logs=[];
 let errors=[];
 
 const urlsToCache=[
- '/simplenotes/cache.appcache',
- '/simplenotes/index.html',
- '/simplenotes/customImport.js',
- '/simplenotes/utils.js',
- '/simplenotes/log.js',
- '/simplenotes/crypto/auth.js',
- '/simplenotes/ui/auth.js',
- '/simplenotes/sw.js',
- '/simplenotes/manifest.json'
+ '',
+ 'cache.appcache',
+ 'index.html',
+ 'customImport.js',
+ 'utils.js',
+ 'log.js',
+ 'crypto/auth.js',
+ 'ui/auth.js',
+ 'sw.js',
+ 'manifest.json'
 ];
 
 const cacheResources=async()=>{
