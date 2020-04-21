@@ -3,16 +3,16 @@ let logs=[];
 let errors=[];
 
 const urlsToCache=[
- '',
- 'cache.appcache',
- 'index.html',
- 'customImport.js',
- 'utils.js',
- 'log.js',
- 'crypto/auth.js',
- 'ui/auth.js',
- 'sw.js',
- 'manifest.json'
+ '/',
+ '/cache.appcache',
+ '/index.html',
+ '/customImport.js',
+ '/utils.js',
+ '/log.js',
+ '/crypto/auth.js',
+ '/ui/auth.js',
+ '/sw.js',
+ '/manifest.json'
 ];
 
 const cacheResources=async()=>{
