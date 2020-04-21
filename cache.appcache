@@ -10,3 +10,5 @@ CACHE MANIFEST
 /test/log.js
 /test/index.js
 /index.html
+/manifest.json
+/sw.js
