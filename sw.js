@@ -3,7 +3,6 @@ let logs=[];
 let errors=[];
 
 const urlsToCache=[
- '/',
  '/cache.appcache',
  '/index.html',
  '/customImport.js',
