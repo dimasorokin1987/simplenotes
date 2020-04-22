@@ -59,11 +59,8 @@ self.addEventListener('fetch',
   logs.push(event.request.url);
   let url=new URL(event.request.url);
   logs.push(url);
-  let responseP=caches.match(url);
-  let response=null;
-  if(responseP){
-   response=await(responseP);
-  }else{
+  let response=await(caches.match(url));
+  if(!response){
    if(navigator.onLine){
     response=await(fetch(event.request));
     let responseClone=response.clone();
