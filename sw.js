@@ -43,7 +43,7 @@ self.addEventListener('install',
   );
  }catch(error){errors.push(error)}}
 );
-
+/*
 self.addEventListener('activate',
  event=>{
   logs.push('service worker activate');
@@ -53,13 +53,14 @@ self.addEventListener('activate',
   );
  }
 );
-
+*/
 self.addEventListener('fetch',
  async(event)=>{
   logs.push(event.request.url);
   let url=new URL(event.request.url);
   logs.push(url);
   let response=await(caches.match(url));
+  /*
   if(!response){
    if(navigator.onLine){
     response=await(fetch(event.request));
@@ -71,6 +72,7 @@ self.addEventListener('fetch',
     errors.push('fetch: cache resourse: offline');
    }
   }
+  */
   event.respondWith(response);
  }
 );
