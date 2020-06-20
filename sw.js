@@ -12,7 +12,8 @@ const urlsToCache=[
  'https://dimasorokin1987.github.io/simplenotes/crypto/auth.js',
  'https://dimasorokin1987.github.io/simplenotes/ui/auth.js',
  'https://dimasorokin1987.github.io/simplenotes/sw.js',
- 'https://dimasorokin1987.github.io/simplenotes/manifest.json'
+ 'https://dimasorokin1987.github.io/simplenotes/manifest.json',
+ 'https://dimasorokin1987.github.io/simplenotes/logo.png'
 ];
 
 // const cacheResources=async()=>{
