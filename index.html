@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang='en' manifest='cache.appcache'>
 <head>
- <title>notes with crypto auth</title>
+ <title>simple notes PWA</title>
  <meta charset='utf-8' />
  <meta name='viewport' content='width=device-width, initial-scale=1' />
  <link rel="manifest" href="manifest.json">
@@ -25,16 +25,20 @@ import{customImport}from'./customImport.js';
    {scope:'/simplenotes/'}
   ));
   if(reg.installing){
-   alert('Service worker installing');
+   console.log('Service worker installing');
+   //alert('Service worker installing');
   }else if(reg.waiting){
-   alert('Service worker installed');
+    console.log('Service worker installed');
+   //alert('Service worker installed');
   }else if(reg.active){
-   alert('Service worker active');
+   console.log('Service worker active');
+   //alert('Service worker active');
 
    let messageChannel=new MessageChannel();
    messageChannel.port1
    .onmessage=e=>{
-    alert(e.data);
+    //alert(e.data);
+    console.log(e.data);
    };
    navigator.serviceWorker
    .controller.postMessage(
