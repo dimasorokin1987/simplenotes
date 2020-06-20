@@ -338,7 +338,7 @@ setSignInHandler(async(
  ));
  isOk=!!userObj;
  if(isOk){
-  alert(JSON.stringify(userObj));
+  //alert(JSON.stringify(userObj));
   items=userObj;
   updateItems(items);
   appendEditButtons(itemsContainer);
@@ -372,12 +372,12 @@ if(localStorage.txt){
   txt=localStorage.txt;
 }
 try{
- alert(name)
- alert(password)
+ //alert(name)
+ //alert(password)
  items=await(cryptoLocalLoad(
   'items_',name,password
  ))||[];
- alert(items);
+ //alert(items);
 }catch(e){alert(e)}
  //if(localStorage.items){
  //items=JSON.parse(localStorage.items);
