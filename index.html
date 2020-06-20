@@ -1,5 +1,6 @@
 <!doctype html>
-<html lang='en' manifest='cache.appcache'>
+<html lang='en'>
+<!--   manifest='cache.appcache' -->
 <head>
  <title>simple notes PWA</title>
  <meta charset='utf-8' />
@@ -22,7 +23,7 @@ import{customImport}from'./customImport.js';
  if(navigator.serviceWorker){
   reg=await(navigator.serviceWorker.register(
    '/simplenotes/sw.js',
-  // {scope:'/simplenotes/'}
+   {scope:'/simplenotes/'}
   ));
   if(reg.installing){
    console.log('Service worker installing');
