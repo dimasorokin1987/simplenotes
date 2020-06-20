@@ -22,7 +22,7 @@ import{customImport}from'./customImport.js';
  if(navigator.serviceWorker){
   reg=await(navigator.serviceWorker.register(
    '/simplenotes/sw.js',
-   {scope:'/simplenotes/'}
+  // {scope:'/simplenotes/'}
   ));
   if(reg.installing){
    console.log('Service worker installing');
