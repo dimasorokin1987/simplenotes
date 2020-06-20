@@ -3,6 +3,7 @@
   "short_name": "simplenotes",
   "theme_color": "#000000",
   "background_color": "#FFFFFF",
+  "start_url": ".",
   "display": "fullscreen",
   "orientation": "portrait"
 }
