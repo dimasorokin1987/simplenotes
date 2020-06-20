@@ -103,7 +103,7 @@ self.addEventListener('fetch',
   */
   event.respondWith(response);
  }
-// );
+);
 
 // self.addEventListener('fetch', (event)=>{
 //     event.respondWith(
