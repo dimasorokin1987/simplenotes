@@ -5,5 +5,12 @@
   "background_color": "#FFFFFF",
   "start_url": "simplenotes",
   "display": "fullscreen",
-  "orientation": "portrait"
+  "orientation": "portrait",
+  "icons": [
+    {   
+        "src": "logo.png",
+        "type": "image/png",
+        "sizes": "200x200"
+    }
+  ]
 }
