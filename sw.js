@@ -3,16 +3,16 @@ let logs=[];
 let errors=[];
 
 const urlsToCache=[
- //'https://dimasorokin1987.github.io/simplenotes/',
- //'https://dimasorokin1987.github.io/simplenotes/cache.appcache',
- 'simplenotes/index.html',
- 'simplenotes/customImport.js',
- 'simplenotes/utils.js',
- 'simplenotes/log.js',
- 'simplenotes/crypto/auth.js',
- 'simplenotes/ui/auth.js',
- 'simplenotes/sw.js',
- 'simplenotes/manifest.json'
+ 'https://dimasorokin1987.github.io/simplenotes/',
+ 'https://dimasorokin1987.github.io/simplenotes/cache.appcache',
+ 'https://dimasorokin1987.github.io/simplenotes/index.html',
+ 'https://dimasorokin1987.github.io/simplenotes/customImport.js',
+ 'https://dimasorokin1987.github.io/simplenotes/utils.js',
+ 'https://dimasorokin1987.github.io/simplenotes/log.js',
+ 'https://dimasorokin1987.github.io/simplenotes/crypto/auth.js',
+ 'https://dimasorokin1987.github.io/simplenotes/ui/auth.js',
+ 'https://dimasorokin1987.github.io/simplenotes/sw.js',
+ 'https://dimasorokin1987.github.io/simplenotes/manifest.json'
 ];
 
 // const cacheResources=async()=>{
