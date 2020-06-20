@@ -29,18 +29,18 @@ import{customImport}from'./customImport.js';
   ));
   if(reg.installing){
    console.log('Service worker installing');
-   //alert('Service worker installing');
+   alert('Service worker installing');
   }else if(reg.waiting){
     console.log('Service worker installed');
-   //alert('Service worker installed');
+   alert('Service worker installed');
   }else if(reg.active){
    console.log('Service worker active');
-   //alert('Service worker active');
+   alert('Service worker active');
 
    let messageChannel=new MessageChannel();
    messageChannel.port1
    .onmessage=e=>{
-    //alert(e.data);
+    alert(e.data);
     console.log(e.data);
    };
    navigator.serviceWorker
