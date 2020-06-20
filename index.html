@@ -24,7 +24,7 @@ import{customImport}from'./customImport.js';
 )=>{try{
  if(navigator.serviceWorker){
   reg=await(navigator.serviceWorker.register(
-   '/simplenotes/sw.js',
+   'sw.js',
    {scope:'/simplenotes/'}
   ));
   if(reg.installing){
