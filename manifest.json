@@ -1,6 +1,6 @@
 {
-  "name": "My Progressive Web Application",
-  "short_name": "Progressive",
+  "name": "simplenotes",
+  "short_name": "simplenotes",
   "theme_color": "#000000",
   "background_color": "#FFFFFF",
   "display": "fullscreen",
