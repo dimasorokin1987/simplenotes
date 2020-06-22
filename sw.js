@@ -82,8 +82,8 @@ self.addEventListener('activate',
 );
 */
 
-self.addEventListener('fetch',
- async(event)=>{
+self.addEventListener('fetch',(event)=>{
+ event.waitUntil(async()=>{
   logs.push(event.request.url);
   let url=new URL(event.request.url);
   logs.push(url);
@@ -102,8 +102,8 @@ self.addEventListener('fetch',
   }
   */
   event.respondWith(response);
- }
-);
+ });
+});
 
 // self.addEventListener('fetch', (event)=>{
 //     event.respondWith(
